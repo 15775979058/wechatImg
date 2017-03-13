@@ -15,5 +15,5 @@
 5. 微信公众平台-微信JS-SDK(定制detail分享内容:标题、副标题、链接、图标...)
 6. 利用微信openid限定一人投一票
 
-# DEMO #
+# Demo #
 [http://wximg.gzxd120.com/](http://wximg.gzxd120.com/)
