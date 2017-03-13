@@ -1,0 +1,172 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body {
+    background: #CFECCC;
+    color: #111111;
+    
+}
+li{
+	list-style-type: none;
+}
+a,input{
+	outline: none;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	}
+#choose{
+	display: none;
+}
+canvas{
+	width: 100%;
+	border: 1px solid #000000;
+}
+#upload{
+	display: block;
+	margin: 10px;
+	height: 60px;
+	text-align: center;
+	line-height: 60px;
+	border: 1px solid;
+	border-radius: 5px;
+	cursor: pointer;
+	font-weight:bold;
+	color:#F0F;
+	}
+.touch{
+	background-color: #ddd;
+}
+.img-list{
+	margin: 10px 5px;
+}
+.img-list li{
+	position: relative;
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	margin: 5px 5px 20px 5px;
+	border: 1px solid rgb(100,149,198);
+	background: #fff no-repeat center;
+	background-size: cover;
+}
+.progress{
+	position: absolute;
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+	bottom: 0;left: 0;
+	background-color:rgba(100,149,198,.5);
+}
+.progress span{
+	display: block;
+	width: 0;
+	height: 100%;
+	background-color:rgb(100,149,198);
+	text-align: center;
+	color: #FFF;font-size: 13px;
+}
+.size{
+	position: absolute;
+	width: 100%;
+	height: 15px;
+	line-height: 15px;
+	bottom: -18px;
+	text-align: center;
+	font-size: 13px;
+	color: #666;
+}
+.tips{
+	display: block;
+	text-align:center;
+	font-size: 13px;
+	margin: 10px;
+	color: #999;
+}
+.pic-list{
+	margin: 10px;
+	line-height: 18px;
+	font-size: 13px;
+}
+.pic-list a{
+	display: block;
+	margin: 10px 0;
+}
+.pic-list a img{
+	vertical-align: middle;
+	max-width: 30px;
+	max-height: 30px;
+	margin: -4px 0 0 10px;
+}
+form#photoInfo {
+    background: #CFECCC;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    width: auto;
+    margin:auto;
+}
+form#photoInfo fieldset {
+    border: none;
+    margin-bottom: 10px;
+}
+form#photoInfo fieldset:last-of-type { margin-bottom: 0; }
+form#photoInfo legend {
+    color: #384313;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    text-shadow: 0 1px 1px #c0d576;
+}
+form#photoInfo fieldset fieldset legend {
+    color: #111111;
+    font-size: 13px;
+    font-weight: normal;
+    padding-bottom: 0;
+}
+form#photoInfo ol li {
+    background: #b9cf6a;
+    background: rgba(255, 255, 255, .3);
+    border-color: #e3ebc3;
+    border-color: rgba(255, 255, 255, .6);
+    border-style: solid;
+    border-width: 2px;
+    -webkit-border-radius: 5px;
+    line-height: 30px;
+    list-style: none;
+    padding: 5px 10px;
+    margin-bottom: 2px;
+}
+form#photoInfo ol ol li {
+    background: none;
+    border: none;
+    float: left;
+}
+form#photoInfo label {
+    float: left;
+    font-size: 13px;
+    width: 110px;
+}
+form#photoInfo fieldset fieldset label {
+    background: none no-repeat left 50%;
+    line-height: 20px;
+    padding: 0 0 0 30px;
+    width: auto;
+}
+form#photoInfo fieldset fieldset label:hover { cursor: pointer; }
+form#photoInfo input:not([type=radio]), form#photoInfo textarea {
+    background: #ffffff;
+    border: #FC3 solid 1px;
+    -webkit-border-radius: 3px;
+    font: italic 13px Georgia, "Times New Roman", Times, serif;
+    outline: none;
+    padding: 5px;
+    width: 200px;
+}
+form#photoInfo input:not([type=submit]):focus, form#photoInfo textarea:focus {
+    background: #eaeaea;
+    border: #F00 solid 1px;
+}
+form#photoInfo input[type=radio] {
+    float: left;
+    margin-right: 5px;
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>投票排行榜</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./Public/css/base.css" />
+        <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="./Public/js/ranklist.js"></script>
+	<link rel="stylesheet" type="text/css" href="Public/css/ranklist.css">
+        <script>
+            var LoadMoreUrl='index.php?c=Image&a=ranklist';
+            var imgUrl='./upload/';
+            var now=1488077313;
+        </script>
+        
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="container search">
+                <form action="" method="get" class="form-inline" role="form">
+                    <div class="row">
+                        <div class="col-xs-6" style="padding-right:2px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-sm" name="value" id="value" />
+                                <input type="hidden" name="c" value="Image" />
+                                <input type="hidden" name="a" value="search" />
+                            </div>
+                        </div>
+                        <div class="col-xs-4" style="padding-right:2px;padding-left:2px;">
+                            <div class="form-group">
+                                <select name="key" id="key" class="form-control input-sm">
+                                    <option value="1">作品编号</option>
+                                    <option value="2">作品标题</option>
+                                    <option value="3">作者姓名</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-2" style="padding-left:2px;">
+                            <div class="form-group">
+                                <input type="submit" value="搜索" class="form-control input-sm btn btn-success"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="container" id="topNav">
+                <div class="row nav">
+                    <ul>
+                        <li><a href="index.php">首　页</a></li>
+                        <li><a href="?c=Competition&a=notification">大赛通知</a></li>
+                        <li><a href="?c=Image&a=upload">作品上传</a></li>
+                        <li class="action"><a href="?c=Image&a=ranklist">排行榜</a></li>
+                        <li><a href="?c=Competition&a=course">摄影课堂</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container" id="listBox">  
+                <?php
+                    $order = 1;
+                    while ($arr_photoinfo=mysql_fetch_array($ret_sqldata)) {
+                        echo "<a href='index.php?c=Image&a=detail&id=".$arr_photoinfo[img_id]."'>";
+                        echo "<div class='cellBox'>";
+                        echo "<div class='row'>";
+                        echo "<div class='col-xs-5 pr_2 rel'>";
+                        echo "<div class='pai qian'>$order</div>";
+                        echo "<img src='upload/$arr_photoinfo[img_file_name]' class='img-responsive' />";
+                        echo "</div>";
+                        echo "<div class='col-xs-7 pl_2'>";
+                        echo "<div class='row mb4'>";
+                        echo "<div class='col-xs-6 pr_2'>";
+                        echo "<strong>编号：</strong>$arr_photoinfo[img_id]";
+                        echo "</div>";
+                        echo "<div class='col-xs-6 pl_2 red'>";
+                        echo "<strong>票数：</strong>$arr_photoinfo[ticket]";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "<p><strong>作者：</strong>$arr_photoinfo[name]</p>";
+                        echo "<p><strong>标题：</strong>$arr_photoinfo[title]</p>";
+                        echo "<p style='overflow:hidden;text-overflow:ellipsis;'><nobr><strong>简介：</strong>$arr_photoinfo[brief]</nobr></p>";
+                        echo "</div></div></div></a>";
+                        $order++;
+                    }
+                ?>
+            </div>
+            
+            <div class="nodata text-center red mb_14" style=""></div>
+            <div id="footer">
+                <p class="text-center">主办：广州现代医院</p>
+                <p class="text-center">承办：广州现代医院企划部</p>
+            </div>
+        </div>
+    </body>
+</html>

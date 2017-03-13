@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>摄影作品-<?php echo "$arr_singleinfo[title]"; ?></title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="Public/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="Public/css/detail.css">
+        <script src="Public/js/jquery-2.1.1.min.js"></script>
+        <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		
+        <script>
+			var name = "<?php echo $arr_singleinfo[name]; ?>";
+			//ajax发送投票请求
+			$(document).ready(function(){
+			  $("div.btn-vote").click(function(){
+				$.post("./index.php?c=User&a=vote",
+				{
+				  openid:"<?php echo $_COOKIE['openid'] ; ?>",
+				  img_id:"<?php echo $arr_singleinfo[img_id]; ?>"
+				},
+				function(data,status){
+				  if(status == "success"){
+					  if(data == "success"){
+						  alert("你成功为" + name + "投了1票");
+						  //更新票数显示
+						  var t_num = parseInt($("#ticket").text()) + 1;
+						  $("#ticket").text(t_num.toString());
+					  }else{
+						  alert("你今天已经投了" + name + "1票了,明天再来吧！");
+					  }
+				  }else{
+					  alert("网络连接失败！");
+				  }
+				});
+			  });
+			});
+		</script>
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="container" id="topNav">
+                <div class="row nav">
+                    <ul>
+                        <li><a href="index.php">首　页</a></li>
+                        <li><a href="?c=Competition&a=notification">大赛通知</a></li>
+                        <li><a href="?c=Image&a=upload">作品上传</a></li>
+                        <li class="action"><a href="?c=Image&a=ranklist">排行榜</a></li>
+                        <li><a href="?c=Competition&a=course">摄影学堂</a></li>
+                    </ul>
+                </div>
+            </div>        
+            <div class="container">
+                <div id="box">
+                    <p style="overflow:hidden;">
+                        <strong class="btn btn-danger bianhao">编号：<?php echo "$arr_singleinfo[img_id]"; ?></strong>
+                        <strong class="fensi">票数：<strong id="ticket"><?php echo "$arr_singleinfo[ticket]"; ?></strong></strong>
+                    </p>
+                    <p><strong>标题：<?php echo "$arr_singleinfo[title]"; ?></strong></p>
+                    <p><strong>作者：<?php echo "$arr_singleinfo[name]"; ?></strong></p>
+                    <p>
+                        <img src="upload/<?php echo $arr_singleinfo[img_file_name]; ?>" class="img-responsive" />
+                    </p>
+                    <p><?php echo "$arr_singleinfo[brief]"; ?></p>
+                    <p>
+                    	<div id="vote" class="btn-danger btn btn-vote">
+                    		<img src="Public/images/btn_vote.png" width="22" height="22"><strong>投票</strong>
+                        </div>
+                    </p>
+                </div>
+                <div id="footer">
+                    <p class="text-center">主办：广州现代医院</p>
+                    <p class="text-center">承办：广州现代医院企划部</p>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+	  //注入JS-SDK
+	  wx.config({
+		debug: false,
+		appId: '<?php echo $signPackage["appId"];?>',
+		timestamp: <?php echo $signPackage["timestamp"];?>,
+		nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+		signature: '<?php echo $signPackage["signature"];?>',
+		jsApiList: [
+		  // 所有要调用的 API 都要加到这个列表中
+		    'previewImage',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage'
+		]
+	  });
+	  wx.ready(function () {
+		// 在这里调用 API
+		var urls=[];
+		urls.push('http://wximg.gzxd120.com/upload/<?php echo $arr_singleinfo[img_file_name]; ?>');
+		$('.img-responsive').click(function(){
+			wx.previewImage({
+			current:$(this).attr('src'),
+			urls:urls
+			});
+		});
+	
+		wx.onMenuShareTimeline({
+			title: '我参加了手机摄影大赛,作品标题为[<?php echo $arr_singleinfo[title]; ?>],快来看看吧！',             // 分享标题
+			link: 'http://wximg.gzxd120.com/index.php?c=Image&a=detail&id=<?php echo $arr_singleinfo[img_id]; ?>', // 分享链接
+			imgUrl: 'http://wximg.gzxd120.com/upload/<?php echo $arr_singleinfo[img_file_name]; ?>', // 分享图标
+			success: function () {
+				alert('分享朋友圈成功')
+			},
+			cancel: function () {
+				alert('取消分享朋友圈成功')
+			}
+		});
+
+		wx.onMenuShareAppMessage({
+			title: '我参加了手机摄影大赛,作品标题为[<?php echo $arr_singleinfo[title]; ?>],快来看看吧！', // 分享标题
+			desc: '<?php echo $arr_singleinfo[brief]; ?>', // 分享描述
+			link: 'http://wximg.gzxd120.com/index.php?c=Image&a=detail&id=<?php echo $arr_singleinfo[img_id]; ?>', // 分享链接
+			imgUrl: 'http://wximg.gzxd120.com/upload/<?php echo $arr_singleinfo[img_file_name]; ?>', // 分享图标
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () {
+				alert('分享微信好友成功')
+			},
+			cancel: function () {
+				alert('取消分享微信好友成功')
+			}
+		});
+	  });
+	</script>
+</html>

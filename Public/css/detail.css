@@ -1,0 +1,165 @@
+#box{
+	padding:10px;
+}
+
+#check{
+	width:100%;
+	height:100%;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index: 100;
+	display: none;
+	padding:1em 0;
+	background:rgba(0,0,0,0.9);
+}
+
+#check .info{
+	background:#077991;
+	height:auto;
+	width:100%;
+	position:fixed;
+	bottom:0;
+	left:0;
+	padding:3em 0;
+
+}
+
+#jixu,#guanbi{
+	display:block;
+	width:55%;
+	height:50px;
+	background:#c4c8c9;
+	margin:1em auto;
+	border:none;
+	border-radius:5px;
+	font-size:1.5em;
+	font-weight:bold;
+	font-family:'黑体';
+
+}
+
+
+#mask{
+	width:100%;
+	height: 100%;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index: 100;
+	background: rgba(0, 0, 0, 0.9);
+	display: none;
+}
+
+#msg{
+	width:100%;
+	height: 100%;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index: 100;
+	background: rgba(0, 0, 0, 0.4);
+	display: none;
+}
+
+#mask .info,#msg .info{
+	position:fixed;
+	bottom:0;
+	left:0;
+	width:100%;
+	height:auto;
+	background:#077991;
+	padding:1em 0;
+}
+
+#hide{
+	float:right;
+	display:block;
+	width:40px;
+	height:40px;
+	background:#fff;
+	border-radius:50%;
+	text-align: center;
+	line-height:40px;
+	font-size:1em;
+	margin-top:-12px;
+}
+
+#msg .info{
+	background:#EF7F00;
+}
+#msg .info h3{
+	color:yellow;
+	font-family: '黑体';
+	font-weight: bold;
+	font-size:1.5em;
+}
+#mask .info img{
+	width:80%;
+	height:auto;
+	margin:0 auto;
+}
+#mask .info .text-center{
+	font-weight: bold;
+	margin-top:0.3em;
+	color:#ff4b4b;
+}
+.fensi{
+	float:right;
+	color:red;
+	font-size: 15px;
+	padding-top: 10px;
+}
+
+.nav{
+	width:102%;
+	margin:0.5em 0;
+	margin-left:-1%;
+	margin-bottom:0;
+}
+.nav ul{
+	width:100%;
+	overflow: hidden;
+	margin:0;
+	padding:0;
+}
+.nav ul li{
+	list-style: none;
+	float: left;
+	width:18%;
+	margin:0 1%;
+	height: 28px;
+	line-height: 28px;
+	border-radius: 4px;
+	background: #EF7F00;
+}
+.nav ul li.action{
+	background:#00c6ff;
+}
+.nav ul li a{
+	display:block;
+	text-align: center;
+	color:#fff;
+}
+.btn-lg{
+	padding:6px 8px;
+}
+.glyphicon{
+	margin-left:12px;
+	font-size:1.3em;
+	float:left;
+	margin-top:5px;
+	color:red;
+	background: url('Public/images/muzhi.png') no-repeat left center;
+	padding-left: 25px;
+	display: inline-block;
+	height: 25px;
+	font-weight: bold;
+}
+.bianhao{
+	float:left;
+	background-color:#09F;
+}
+.btn-vote{
+	margin-left:36%;
+}
