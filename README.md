@@ -7,7 +7,7 @@
 - 投票、分享
 - 作品修改
 
-# 设及知识点 #
+# 技术 #
 1. MVC开发模式
 2. PHP+MySQL
 3. 上传前，在前端利用JS对图片进行压缩（/Public/js/localCompress.js）
@@ -15,6 +15,16 @@
 5. 微信公众平台-微信JS-SDK(定制detail分享内容:标题、副标题、链接、图标...)
 6. 利用微信openid限定一人投一票
 7. 获取当前请求URL存储到cookie中，授权登录并存储用户信息后自动跳转到登录前页面。
+
+# MySQL #
+数据库中的三个表：
+
+1. wx_imginfo
+![](./src/wx_imginfo.jpg)
+2. wx_userinfo
+![](./src/wx_userinfo.jpg)
+3. wx_vote
+![](./src/wx_vote.jpg)
 
 # Demo #
 [http://wximg.gzxd120.com/](http://wximg.gzxd120.com/)
