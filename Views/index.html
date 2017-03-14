@@ -2,15 +2,16 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>见证你我身边的感动</title>
+        <title>手机摄影创作大赛</title>
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="./Public/css/base.css" />
-        <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="Public/css/index.css">
         <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="Public/css/index.css">
+        <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script src="Public/js/jquery-2.1.1.min.js"></script>
     </head>
     <body>
         <div id="wrap">
@@ -95,4 +96,49 @@
             </div>
         </div>
     </body>
+     <script>
+	  //注入JS-SDK
+	  wx.config({
+		debug: false,
+		appId: '<?php echo $signPackage["appId"];?>',
+		timestamp: <?php echo $signPackage["timestamp"];?>,
+		nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+		signature: '<?php echo $signPackage["signature"];?>',
+		jsApiList: [
+		  // 所有要调用的 API 都要加到这个列表中
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage'
+		]
+	  });
+	  wx.ready(function () {
+		// 在这里调用 API
+		//分享朋友圈
+		wx.onMenuShareTimeline({
+			title: '快来参加手机摄影创作大赛赢千元现金大奖吧!',             // 分享标题
+			link: 'http://wximg.gzxd120.com/', // 分享链接
+			imgUrl: 'http://wximg.gzxd120.com/Public/images/logo.jpg', // 分享图标
+			success: function () {
+				alert('分享朋友圈成功')
+			},
+			cancel: function () {
+				alert('取消分享朋友圈成功')
+			}
+		});
+		//分享微信好友
+		wx.onMenuShareAppMessage({
+			title: '“见证你我身边的感动”-质量与安全手机摄影创作大赛', // 分享标题
+			desc: '迎接JCI复审系列活动之“见证你我身边的感动”-质量与安全手机摄影创作大赛', // 分享描述
+			link: 'http://wximg.gzxd120.com/', // 分享链接
+			imgUrl: 'http://wximg.gzxd120.com/Public/images/logo.jpg', // 分享图标
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () {
+				alert('分享微信好友成功')
+			},
+			cancel: function () {
+				alert('取消分享微信好友成功')
+			}
+		});
+	  });
+	</script>
 </html>
