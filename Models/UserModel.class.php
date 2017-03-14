@@ -33,7 +33,7 @@ class UserModel {
     }
     
     
-    //存储用户信息到数据库、cookie,并跳转到登录前的url
+    //存储用户信息到数据库、cookie
     function storeUserInfo($user_data) {
         //获取授权类型
         $state = "";

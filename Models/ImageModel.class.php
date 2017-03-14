@@ -105,7 +105,7 @@ class ImageModel {
     }
     
     
-    //作品详细页面
+    //获取单个作品详细信息
     function getDetail() {
         require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
@@ -126,16 +126,15 @@ class ImageModel {
          if($rows==0){
              header("Location: ./index.php?c=Image&a=ranklist");        //记录不存在就跳转到排行榜
              exit();
-        }  
-        $arr_singleinfo=mysql_fetch_array($ret_sqldata);    //转换成数组
-        //更新阅读量
-        $count = $arr_singleinfo['pageview'] + 1;
-        $sql_upd="UPDATE wx_imginfo SET pageview=$count WHERE img_id = '$id'";
+        }
+        //阅读量+1
+        $sql_upd="UPDATE wx_imginfo SET pageview=pageview+1 WHERE img_id = '$id'";
         $result = mysql_query($sql_upd, $link);
         if ($result === false) {
             die("更新阅读量失败:" . mysql_error($link));
         }
-        return $arr_singleinfo;    //返回数组
+        //返回数组数组
+        return mysql_fetch_array($ret_sqldata);    //转换成数组
     }
     
     

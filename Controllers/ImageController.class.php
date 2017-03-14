@@ -49,7 +49,7 @@ class ImageController {
         require_once './Views/ranklist.html';
     }
     
-    //作品详细页
+    //作品展示页面
     function detailAction() {
         //检查是否已经登录
         require './Models/UserModel.class.php';
