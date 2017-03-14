@@ -14,6 +14,7 @@
 4. 微信公众平台-微信网页授权（获取用户openid、昵称、头像...）
 5. 微信公众平台-微信JS-SDK(定制detail分享内容:标题、副标题、链接、图标...)
 6. 利用微信openid限定一人投一票
+7. 获取当前请求URL存储到cookie中，授权登录并存储用户信息后自动跳转到登录前页面。
 
 # Demo #
 [http://wximg.gzxd120.com/](http://wximg.gzxd120.com/)
