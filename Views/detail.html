@@ -118,7 +118,7 @@
 
 		wx.onMenuShareAppMessage({
 			title: '我参加了手机摄影大赛,作品标题为[<?php echo $arr_singleinfo[title]; ?>],快来看看吧！', // 分享标题
-			desc: '<?php echo $arr_singleinfo[brief]; ?>', // 分享描述
+			desc: '<?php echo $arr_singleinfo[name]; ?>作品', // 分享描述
 			link: 'http://wximg.gzxd120.com/index.php?c=Image&a=detail&id=<?php echo $arr_singleinfo[img_id]; ?>', // 分享链接
 			imgUrl: 'http://wximg.gzxd120.com/upload/<?php echo $arr_singleinfo[img_file_name]; ?>', // 分享图标
 			type: '', // 分享类型,music、video或link，不填默认为link
