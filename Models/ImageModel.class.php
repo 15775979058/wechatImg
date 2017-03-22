@@ -166,8 +166,12 @@ class ImageModel {
         if ($ret_sqldata === false) {
             die("查询数据失败: " . mysql_error($link));
         }
-        //此处应该验证openid，防止非法访问修改页面
-        return mysql_fetch_array($ret_sqldata);       //记录转换成数组
+        //验证openid，防止非法访问修改页面
+        $arr_imginfo = mysql_fetch_array($ret_sqldata);          //记录转换成数组
+        if($arr_imginfo['openid'] != $_COOKIE["openid"]){        //判断是否本人。此处直接读取cookie，因为登录检查方法已经验证了该cookie已经存在
+            die('你不是该作品的拥有者');
+        }
+        return $arr_imginfo;        //返回照片信息数组
     }
     
     
