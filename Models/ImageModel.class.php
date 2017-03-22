@@ -6,7 +6,7 @@ class ImageModel {
     }
     
     
-    //接收上传的图片文件方法
+    //接收文件
     function receiveImg() {
         $status = "";      //上传状态，用于控制表单提交按钮的隐藏/显示
         if(($_FILES["file"]["type"] == "image/gif") || ($_FILES["file"]["type"] == "image/jpeg")
@@ -46,11 +46,19 @@ class ImageModel {
         $db = new DatabaseModel();
         $link = $db->connectDatabase();
         //对POST提交的变量进行非空验证
-        $name = !empty($_POST['name']) ? $_POST['name'] : die("POST参数不正确");
-        $openid = !empty($_POST['openid']) ? $_POST['openid'] : die("POST参数不正确");
-        $title = !empty($_POST['title']) ? $_POST['title'] : die("POST参数不正确");
-        $brief = !empty($_POST['brief']) ? $_POST['brief'] : die("POST参数不正确");
-        $filename = !empty($_POST['filename']) ? $_POST['filename'] : die("POST参数不正确");
+        $post_name = !empty($_POST['name']) ? $_POST['name'] : die("POST参数不正确");
+        $post_openid = !empty($_POST['openid']) ? $_POST['openid'] : die("POST参数不正确");
+        $post_title = !empty($_POST['title']) ? $_POST['title'] : die("POST参数不正确");
+        $post_brief = !empty($_POST['brief']) ? $_POST['brief'] : die("POST参数不正确");
+        $post_filename = !empty($_POST['filename']) ? $_POST['filename'] : die("POST参数不正确");
+        //对于提交的表单数据进行特殊字符检查，防止提交HTML标签
+        $name = htmlspecialchars($post_name,ENT_QUOTES);        //转义所有HTML字符，包括英文的单引号、双引号
+        $openid = htmlspecialchars($post_openid,ENT_QUOTES);
+        $title = htmlspecialchars($post_title,ENT_QUOTES);
+        $filename = htmlspecialchars($post_filename,ENT_QUOTES);
+        //对简介进行特殊字符处理，包括回车换行符
+        $no_specialchars_brief = htmlspecialchars($post_brief,ENT_QUOTES);         
+        $brief = str_replace("\r\n", "<br>", $no_specialchars_brief);              //把回车换行符\r\n替换成<br/>
         //向photoinfo表插入数据
         $sql_picinfo="INSERT INTO wx_imginfo ( name, openid, title, brief, img_file_name) VALUES ('$name','$openid','$title','$brief','$filename')";
         $ret_inslog = mysql_query($sql_picinfo, $link);
@@ -182,12 +190,24 @@ class ImageModel {
         $db = new DatabaseModel();
         $link = $db->connectDatabase();
         //对POST提交的变量进行验证
-        $name = !empty($_POST['name']) ? $_POST['name'] : exit();
-        $title = !empty($_POST['title']) ? $_POST['title'] : exit();
-        $brief = !empty($_POST['brief']) ? $_POST['brief'] : exit();
+        $post_name = !empty($_POST['name']) ? $_POST['name'] : exit();
+        $post_title = !empty($_POST['title']) ? $_POST['title'] : exit();
+        $post_brief = !empty($_POST['brief']) ? $_POST['brief'] : exit();
         $img_id = !empty($_POST['img_id']) ? $_POST['img_id'] : exit();
+        //对于提交的表单数据进行特殊字符检查，防止提交HTML标签
+        $name = htmlspecialchars($post_name,ENT_QUOTES);                 //转义所有HTML字符，包括英文的单引号、双引号
+        $title = htmlspecialchars($post_title,ENT_QUOTES);
+        $no_sc_brief = htmlspecialchars($post_brief,ENT_QUOTES);         
+        $brief = str_replace("\r\n", "<br>", $no_sc_brief);              //把回车换行符\r\n替换成<br/>
+        //进行拥有者验证
+        $sql_query_owner="select * from wx_imginfo where img_id=".$img_id;
+        $ret_owner = mysql_query($sql_query_owner, $link);
+        $arr_imginfo = mysql_fetch_array($ret_owner);
+        if($arr_imginfo['openid'] != $_COOKIE["openid"]){
+            die('你不是该作品的拥有者');    //如果不是本人，直接退出脚本
+        }
         //更新数据库
-        $sql_picinfo="UPDATE wx_imginfo SET name='$name',title='$title',brief='$brief' WHERE img_id='$img_id'";
+        $sql_picinfo="UPDATE wx_imginfo SET name='$name',title='$title',brief='$brief' WHERE img_id=$img_id";
         $ret_inslog = mysql_query($sql_picinfo, $link);
         if ($ret_inslog === false) {
             die("插入数据失败: " . mysql_error($link));
