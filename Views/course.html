@@ -1,75 +1,291 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="zh">
-    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="telephone=no" />
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,user-scalable=no" />
     <title>广州现代医院-摄影学堂</title>
 </head>
 <style>
-    *, *:before, *:after {  -webkit-box-sizing:border-box;  box-sizing:border-box;  }
-    html, body, div, span, h1, h2, h3, h4, h5, h6, p, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead{  background: none repeat scroll 0 0 transparent;  margin: 0;  outline: 0 none;  padding: 0;  border:0; }
-    ol,ul,li{  list-style: none outside none; }
-    html{height:100%;font-size:62.5%;-webkit-text-size-adjust:none}
-    body {  background: #FFF;  color:#666;  font-size:14px;  font-size:1.4rem; font: 1.4rem/1.5 'Microsoft YaHei', arial, \5b8b\4f53, sans-serif;  margin: 0;  padding: 0;  text-align: left;  -webkit-user-select:none;  position:relative;  -webkit-font-smoothing: antialiased;  overflow-x:hidden;  }
-    a {color: #555; text-decoration: none;outline: 0;}
-    a:hover{text-decoration:none;}
-    img{width:100%;-webkit-user-drag: none; vertical-align: bottom; border: 0;}
-    *p:last-child {margin-bottom: 0;}
-    /*启用HTML5标签*/
-    header,section,footer,aside,nav,article,figure{display:block;margin:0;}
-    .wrapper{ margin-top:0;font-size:1.4rem; }
-    .bg{ max-width:640px;margin:0 auto; min-height: 480px; overflow: hidden;background-color:#25292a;}
-    .index-header{ width: 100%; padding: 10px 5px; text-align: center; background-size: 100%;}
-    .index-header .logo{ margin-top: 30px; margin-bottom: 20px;}
-    .index-header .logo img{ width: 80px; height: 80px; border-radius: 100%;}
-    .index-header h3{ font-size: 2.0rem; width: 100%; font-weight:bold;}
-    .index-header p{ font-size: 36px;}
-    .index-btn{ position: relative;margin: 0 10px; text-align: center;}
-    .index-btn.l1 p{ display: inline-block; width:25%; margin: 0 5px;}
-    .index-btn.l2 p{ display: inline-block; width:20%; margin: 0 15px; margin-top: 15px;}
-    .index-btn p a{ display: inline-block; width: 100%;}
-    .index-btn p span{ display: inline-block; margin-top: 5px; font-size: 1.2rem; color: #fff;}
-    @media (min-width: 330px) {
-        .index-btn p span{ font-size: 1.4rem;}
+    *,
+    *:before,
+    *:after {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
     }
-    .inde-box{margin-bottom: 15%;}
-    .index-footer{ position: absolute; left: 0; bottom: 15px; width: 100%; padding: 5px 0; text-align: center; color: #fff;}
-    .index-footer a{ color: #fff;}
-    .line{ width: 100%; height: 3px; margin-bottom: 5%;}
-    .line span{ display: block; width: 60%; height: 3px; -webkit-animation: line 7s ease-in infinite;  background: url("../Public/images/course/line.png") no-repeat; background-size: 100%;}
-    @-webkit-keyframes line{
-        0%{ -webkit-transform:translateX(-100%);}
-        100%{ -webkit-transform:translateX(200%);}
+    
+    html,
+    body,
+    div,
+    span,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    font,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead {
+        background: none repeat scroll 0 0 transparent;
+        margin: 0;
+        outline: 0 none;
+        padding: 0;
+        border: 0;
+    }
+    
+    ol,
+    ul,
+    li {
+        list-style: none outside none;
+    }
+    
+    html {
+        height: 100%;
+        font-size: 62.5%;
+        -webkit-text-size-adjust: none
+    }
+    
+    body {
+        background: #FFF;
+        color: #666;
+        font-size: 14px;
+        font-size: 1.4rem;
+        font: 1.4rem/1.5 'Microsoft YaHei', arial, \5b8b\4f53, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        -webkit-user-select: none;
+        position: relative;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+    }
+    
+    a {
+        color: #555;
+        text-decoration: none;
+        outline: 0;
+    }
+    
+    a:hover {
+        text-decoration: none;
+    }
+    
+    img {
+        width: 100%;
+        -webkit-user-drag: none;
+        vertical-align: bottom;
+        border: 0;
+    }
+    
+    *p:last-child {
+        margin-bottom: 0;
+    }
+    /*启用HTML5标签*/
+    
+    header,
+    section,
+    footer,
+    aside,
+    nav,
+    article,
+    figure {
+        display: block;
+        margin: 0;
+    }
+    
+    .wrapper {
+        margin-top: 0;
+        font-size: 1.4rem;
+    }
+    
+    .bg {
+        max-width: 640px;
+        margin: 0 auto;
+        min-height: 480px;
+        overflow: hidden;
+        background-color: #25292a;
+    }
+    
+    .index-header {
+        width: 100%;
+        padding: 10px 5px;
+        text-align: center;
+        background-size: 100%;
+    }
+    
+    .index-header .logo {
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+    
+    .index-header .logo img {
+        width: 80px;
+        height: 80px;
+        border-radius: 100%;
+    }
+    
+    .index-header h3 {
+        font-size: 2.0rem;
+        width: 100%;
+        font-weight: bold;
+    }
+    
+    .index-header p {
+        font-size: 36px;
+    }
+    
+    .index-btn {
+        position: relative;
+        margin: 0 10px;
+        text-align: center;
+    }
+    
+    .index-btn.l1 p {
+        display: inline-block;
+        width: 25%;
+        margin: 0 5px;
+    }
+    
+    .index-btn.l2 p {
+        display: inline-block;
+        width: 20%;
+        margin: 0 15px;
+        margin-top: 15px;
+    }
+    
+    .index-btn p a {
+        display: inline-block;
+        width: 100%;
+    }
+    
+    .index-btn p span {
+        display: inline-block;
+        margin-top: 5px;
+        font-size: 1.2rem;
+        color: #fff;
+    }
+    
+    @media (min-width: 330px) {
+        .index-btn p span {
+            font-size: 1.4rem;
+        }
+    }
+    
+    .inde-box {
+        margin-bottom: 15%;
+    }
+    
+    .index-footer {
+        position: absolute;
+        left: 0;
+        bottom: 15px;
+        width: 100%;
+        padding: 5px 0;
+        text-align: center;
+        color: #fff;
+    }
+    
+    .index-footer a {
+        color: #fff;
+    }
+    
+    .line {
+        width: 100%;
+        height: 3px;
+        margin-bottom: 5%;
+    }
+    
+    .line span {
+        display: block;
+        width: 60%;
+        height: 3px;
+        -webkit-animation: line 7s ease-in infinite;
+        background: url("../Public/images/course/line.png") no-repeat;
+        background-size: 100%;
+    }
+    
+    @-webkit-keyframes line {
+        0% {
+            -webkit-transform: translateX(-100%);
+        }
+        100% {
+            -webkit-transform: translateX(200%);
+        }
     }
 </style>
+
 <body>
-<div id="wapper" class="wrapper bg">
-    <div clas="headimg"><img  src="../Public/images/course/head.jpg"></div>
-    <div class="line"><span></span></div>
-    <div class="inde-box">
-        <div class="index-btn l2">
-            <p><a href="http://bbs.vivo.com.cn/thread-1402408-1-1.html"><img src="../Public/images/course/btn.png"/></a><span>摄影基础</span></p>
-            <p><a href="http://www.fsbus.com/danfanrumen/18499.html"><img src="../Public/images/course/btn.png"/></a><span>构图基础</span></p>
-            <p><a href="http://www.nphoto.net/news/2009-11/04/0af819280b6f968e.shtml"><img src="../Public/images/course/btn.png"/></a><span>构图技巧</span></p>
+    <div id="wapper" class="wrapper bg">
+        <div clas="headimg"><img src="../Public/images/course/head.jpg"></div>
+        <div class="line"><span></span></div>
+        <div class="inde-box">
+            <div class="index-btn l2">
+                <p>
+                    <a href="http://bbs.vivo.com.cn/thread-1402408-1-1.html"><img src="../Public/images/course/btn.png" /></a><span>摄影基础</span></p>
+                <p>
+                    <a href="http://www.fsbus.com/danfanrumen/18499.html"><img src="../Public/images/course/btn.png" /></a><span>构图基础</span></p>
+                <p>
+                    <a href="http://www.nphoto.net/news/2009-11/04/0af819280b6f968e.shtml"><img src="../Public/images/course/btn.png" /></a><span>构图技巧</span></p>
+            </div>
+            <div class="index-btn l2">
+                <p>
+                    <a href="http://www.missyuan.com/thread-587458-1-1.html"><img src="../Public/images/course/btn.png" /></a><span>室内摄影</span></p>
+                <p>
+                    <a href="http://jingyan.baidu.com/article/c74d60007d184f0f6b595d65.html"><img src="../Public/images/course/btn.png" /></a><span>背景虚化</span></p>
+                <p>
+                    <a href="http://www.chuanke.com/course/_%E6%91%84%E5%BD%B1_____.html?statistics_channel_id=1702&statistics_uid=13"><img src="../Public/images/course/btn.png" /></a><span>视频教程</span></p>
+            </div>
         </div>
-        <div class="index-btn l2">
-            <p><a href="http://www.missyuan.com/thread-587458-1-1.html"><img src="../Public/images/course/btn.png"/></a><span>室内摄影</span></p>
-            <p><a href="http://jingyan.baidu.com/article/c74d60007d184f0f6b595d65.html"><img src="../Public/images/course/btn.png"/></a><span>背景虚化</span></p>
-            <p><a href="http://www.chuanke.com/course/_%E6%91%84%E5%BD%B1_____.html?statistics_channel_id=1702&statistics_uid=13"><img src="../Public/images/course/btn.png"/></a><span>视频教程</span></p>
-        </div>
+        <footer class="index-footer">
+            <p>摄影学堂</p>
+            <p style="font-size: 1.2rem;"><a href="http://www.greatfar.cn">企划部技术支持</a></p>
+        </footer>
     </div>
-    <footer class="index-footer">
-        <p>摄影学堂</p>
-        <p style="font-size: 1.2rem;"><a href="http://www.greatfar.cn">企划部技术支持</a></p>
-    </footer>
-</div>
-<script>
-    var w = document.documentElement.clientWidth;
-    var h = document.documentElement.clientHeight;
-    var id = document.getElementById("wapper");
-    id.style.width = w+'px';
-    id.style.minHeight = h+'px';
-</script>
+    <script>
+        var w = document.documentElement.clientWidth;
+        var h = document.documentElement.clientHeight;
+        var id = document.getElementById("wapper");
+        id.style.width = w + 'px';
+        id.style.minHeight = h + 'px';
+    </script>
 </body>

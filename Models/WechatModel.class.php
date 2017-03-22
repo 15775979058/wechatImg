@@ -14,14 +14,8 @@ class WechatModel {
     //授权登录信息获取
     function wxOAuthLogin() {
         //用户同意授权，获取code
-        $code = "";
-        $state = "";
-        if(isset($_GET['code']) && is_string($_GET['code']) && !empty($_GET['code'])){             //判断变量已设置、非空并且是字符串
-            $code = $_GET['code'];
-        }else { return; }
-        if(isset($_GET['state']) && is_string($_GET['state']) && !empty($_GET['state'])){          //判断变量已设置、非空并且是字符串
-            $state = $_GET['state'];
-        }else { return; }
+        $code = !empty($_GET['code']) ? $_GET['code'] : exit();
+        $state = !empty($_GET['state']) ? $_GET['state'] : exit();
         //判断授权类型
         if($state == "base"){
             //通过code换取网页授权openid

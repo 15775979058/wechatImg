@@ -36,10 +36,7 @@ class UserModel {
     //存储用户信息到数据库、cookie
     function storeUserInfo($user_data) {
         //获取授权类型
-        $state = "";
-        if(isset($_GET['state'])){          //判断变量已设置
-            $state = $_GET['state'];
-        }else { return; }
+        $state = !empty($_GET['state']) ? $_GET['state'] : exit();            //验证GET变量
         if($state == "base"){
             setcookie("openid", $user_data->{'openid'}, time()+36000);        //返回的是openid,直接写入cookie中
         }else if($state == "userinfo"){
@@ -77,10 +74,12 @@ class UserModel {
         return $ret_sqldata;
     }
     
+    
     //投票方法
     function vote() {
-        $openid = isset($_POST['openid']) ? $_POST['openid'] : die("illegal vote");       //如果post了openid就赋值，没有设置openid,直接退出php脚本,结束运行
-        $imgid = isset($_POST['img_id']) ? $_POST['img_id'] : die("illegal vote");       //如果post了img_id就赋值，没有设置img_id,直接退出php脚本,结束运行
+        //对POST变量进行验证
+        $openid = isset($_POST['openid']) ? $_POST['openid'] : die("不合法的投票请求");
+        $imgid = isset($_POST['img_id']) ? $_POST['img_id'] : die("不合法的投票请求");
         //连接数据库
         require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();

@@ -45,27 +45,12 @@ class ImageModel {
         require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
         $link = $db->connectDatabase();
-        //对POST提交的变量进行验证
-        $name = "";
-        $openid = "";
-        $title = "";
-        $brief = "";
-        $filename = "";
-        if(isset($_POST['name']) && is_string($_POST['name']) && !empty($_POST['name'])){             //判断变量已设置、非空并且是字符串
-            $name = $_POST['name'];
-        }else { exit(); }   //不符合任何一个条件，直接退出
-        if(isset($_POST['openid']) && is_string($_POST['openid']) && !empty($_POST['openid'])){          //判断变量已设置、非空并且是字符串
-            $openid = $_POST['openid'];
-        }else { exit(); }
-        if(isset($_POST['title']) && is_string($_POST['title']) && !empty($_POST['title'])){          //判断变量已设置、非空并且是字符串
-            $title = $_POST['title'];
-        }else { exit(); }
-        if(isset($_POST['brief']) && is_string($_POST['brief']) && !empty($_POST['brief'])){          //判断变量已设置、非空并且是字符串
-            $brief = $_POST['brief'];
-        }else { exit(); }
-        if(isset($_POST['filename']) && is_string($_POST['filename']) && !empty($_POST['filename'])){          //判断变量已设置、非空并且是字符串
-            $filename = $_POST['filename'];
-        }else { exit(); }
+        //对POST提交的变量进行非空验证
+        $name = !empty($_POST['name']) ? $_POST['name'] : die("POST参数不正确");
+        $openid = !empty($_POST['openid']) ? $_POST['openid'] : die("POST参数不正确");
+        $title = !empty($_POST['title']) ? $_POST['title'] : die("POST参数不正确");
+        $brief = !empty($_POST['brief']) ? $_POST['brief'] : die("POST参数不正确");
+        $filename = !empty($_POST['filename']) ? $_POST['filename'] : die("POST参数不正确");
         //向photoinfo表插入数据
         $sql_picinfo="INSERT INTO wx_imginfo ( name, openid, title, brief, img_file_name) VALUES ('$name','$openid','$title','$brief','$filename')";
         $ret_inslog = mysql_query($sql_picinfo, $link);
@@ -111,10 +96,7 @@ class ImageModel {
         $db = new DatabaseModel();
         $link = $db->connectDatabase();     //连接数据库
         //对POST提交的变量进行验证
-        $id = "";
-        if(isset($_GET['id']) && is_string($_GET['id']) && !empty($_GET['id'])){       //判断变量已设置、非空并且是字符串
-            $id = $_GET['id'];
-        }else { exit(); }
+        $id = !empty($_GET['id']) ? $_GET['id'] : exit();
         //查询photoinfo表
         $sql_picinfo="select * from wx_imginfo where img_id='$id'";
         $ret_sqldata = mysql_query($sql_picinfo, $link);
@@ -144,15 +126,8 @@ class ImageModel {
         $db = new DatabaseModel();
         $link = $db->connectDatabase();     //连接数据库
         //对GET提交的变量进行验证
-        $key = "";
-        $value = "";
-        if(isset($_GET['key']) && is_string($_GET['key']) && !empty($_GET['key'])){             //判断变量已设置、非空并且是字符串
-            $key = $_GET['key'];
-        }else { exit(); }
-        if(isset($_GET['value']) && is_string($_GET['value']) && !empty($_GET['value'])){          //判断变量已设置、非空并且是字符串
-            $value = $_GET['value'];
-        }else { exit(); }
-
+        $key = !empty($_GET['key']) ? $_GET['key'] : exit();
+        $value = !empty($_GET['value']) ? $_GET['value'] : exit();
         //分类组装查询语句
         $sql_search = "";
         switch ($key) {
@@ -165,10 +140,8 @@ class ImageModel {
             case "3":
                 $sql_search = "select * from wx_imginfo where name='$value'";
                 break;
-            case "4":
-                $sql_search = "select * from wx_imginfo where nickname='$value'";
-                break;
             default:
+                die('不支持的搜索类型');
                 break;
         }
         //查询photoinfo表
@@ -179,17 +152,21 @@ class ImageModel {
         return $ret_sqldata;    //返回查询结果集
     }
     
+    
     //获取照片信息，用于填充修改表单
     function getMyImgById($img_id) {
         //连接数据库
         require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
         $link = $db->connectDatabase();
-        $sql_picinfo="select * from wx_imginfo where img_id=".$_GET['id'];
+        //查询数据库
+        $id = !empty($_GET['id']) ? $_GET['id'] : exit();       //验证Get变量
+        $sql_picinfo="select * from wx_imginfo where img_id=".$id;
         $ret_sqldata = mysql_query($sql_picinfo, $link);
         if ($ret_sqldata === false) {
             die("查询数据失败: " . mysql_error($link));
         }
+        //此处应该验证openid，防止非法访问修改页面
         return mysql_fetch_array($ret_sqldata);       //记录转换成数组
     }
     
@@ -201,23 +178,11 @@ class ImageModel {
         $db = new DatabaseModel();
         $link = $db->connectDatabase();
         //对POST提交的变量进行验证
-        $name = "";
-        $title = "";
-        $brief = "";
-        $number = "";
-        if(isset($_POST['name']) && is_string($_POST['name']) && !empty($_POST['name'])){             //判断变量已设置、非空并且是字符串
-            $name = $_POST['name'];
-        }else { exit(); }   //不符合任何一个条件，直接退出
-        if(isset($_POST['title']) && is_string($_POST['title']) && !empty($_POST['title'])){          //判断变量已设置、非空并且是字符串
-            $title = $_POST['title'];
-        }else { exit(); }
-        if(isset($_POST['brief']) && is_string($_POST['brief']) && !empty($_POST['brief'])){          //判断变量已设置、非空并且是字符串
-            $brief = $_POST['brief'];
-        }else { exit(); }
-        if(isset($_POST['img_id']) && is_string($_POST['img_id']) && !empty($_POST['img_id'])){       //判断变量已设置、非空并且是字符串
-            $img_id = $_POST['img_id'];
-        }else { exit(); }
-        //更新数据
+        $name = !empty($_POST['name']) ? $_POST['name'] : exit();
+        $title = !empty($_POST['title']) ? $_POST['title'] : exit();
+        $brief = !empty($_POST['brief']) ? $_POST['brief'] : exit();
+        $img_id = !empty($_POST['img_id']) ? $_POST['img_id'] : exit();
+        //更新数据库
         $sql_picinfo="UPDATE wx_imginfo SET name='$name',title='$title',brief='$brief' WHERE img_id='$img_id'";
         $ret_inslog = mysql_query($sql_picinfo, $link);
         if ($ret_inslog === false) {
