@@ -20,7 +20,7 @@ class ImageModel {
                   $status = "file existed";
                 }
                 else{       //上传成功并保存
-                    $randname=date("Y").date("m").date("d").date("H").date("i").date("s").rand(100, 999).".jpg";       //时间戳+随机数字，防止名字重复
+                    $randname=date("Y").date("m").date("d").date("H").date("i").date("s").rand(100, 999).".jpg";       //照片名字，时间戳+随机数字，防止名字重复
                     move_uploaded_file($_FILES["file"]["tmp_name"], "./upload/" . $randname);
                     $status = "upload completed";
                 }
