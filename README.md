@@ -28,4 +28,5 @@
 ![](./src/wx_vote.jpg)
 
 # Demo #
+Eemo只能在微信中打开
 [http://wximg.gzxd120.com/](http://wximg.gzxd120.com/)
