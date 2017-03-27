@@ -1,67 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>投票排行榜</title>
-        <meta name="renderer" content="webkit">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="./Public/css/base.css" />
-        <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-        <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-        <script src="./Public/js/ranklist.js"></script>
-	<link rel="stylesheet" type="text/css" href="Public/css/ranklist.css">
-        <script>
-            var LoadMoreUrl='index.php?c=Image&a=ranklist';
-            var imgUrl='./upload/';
-            var now=1488077313;
-        </script>
-        
-    </head>
-    <body>
-        <div id="wrap">
-            <div class="container search">
-                <form action="" method="get" class="form-inline" role="form">
-                    <div class="row">
-                        <div class="col-xs-6" style="padding-right:2px;">
-                            <div class="form-group">
-                                <input type="text" class="form-control input-sm" name="value" id="value" />
-                                <input type="hidden" name="c" value="Image" />
-                                <input type="hidden" name="a" value="search" />
-                            </div>
+
+<head>
+    <meta charset="utf-8">
+    <title>投票排行榜</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Public/css/base.css" />
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="./Public/js/ranklist.js"></script>
+    <link rel="stylesheet" type="text/css" href="Public/css/ranklist.css">
+    <script>
+        var LoadMoreUrl = 'index.php?c=Image&a=ranklist';
+        var imgUrl = './upload/';
+        var now = 1488077313;
+    </script>
+
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="container search">
+            <form action="" method="get" class="form-inline" role="form">
+                <div class="row">
+                    <div class="col-xs-6" style="padding-right:2px;">
+                        <div class="form-group">
+                            <input type="text" class="form-control input-sm" name="value" id="value" />
+                            <input type="hidden" name="c" value="Image" />
+                            <input type="hidden" name="a" value="search" />
                         </div>
-                        <div class="col-xs-4" style="padding-right:2px;padding-left:2px;">
-                            <div class="form-group">
-                                <select name="key" id="key" class="form-control input-sm">
+                    </div>
+                    <div class="col-xs-4" style="padding-right:2px;padding-left:2px;">
+                        <div class="form-group">
+                            <select name="key" id="key" class="form-control input-sm">
                                     <option value="1">作品编号</option>
                                     <option value="2">作品标题</option>
                                     <option value="3">作者姓名</option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-2" style="padding-left:2px;">
-                            <div class="form-group">
-                                <input type="submit" value="搜索" class="form-control input-sm btn btn-success"/>
-                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="container" id="topNav">
-                <div class="row nav">
-                    <ul>
-                        <li><a href="index.php">首　页</a></li>
-                        <li><a href="?c=Competition&a=notification">大赛通知</a></li>
-                        <li><a href="?c=Image&a=upload">作品上传</a></li>
-                        <li class="action"><a href="?c=Image&a=ranklist">排行榜</a></li>
-                        <li><a href="?c=Competition&a=course">摄影课堂</a></li>
-                    </ul>
+                    <div class="col-xs-2" style="padding-left:2px;">
+                        <div class="form-group">
+                            <input type="submit" value="搜索" class="form-control input-sm btn btn-success" />
+                        </div>
+                    </div>
                 </div>
+            </form>
+        </div>
+        <div class="container" id="topNav">
+            <div class="row nav">
+                <ul>
+                    <li><a href="index.php">首　页</a></li>
+                    <li><a href="?c=Competition&a=notification">大赛通知</a></li>
+                    <li><a href="?c=Image&a=upload">作品上传</a></li>
+                    <li class="action"><a href="?c=Image&a=ranklist">排行榜</a></li>
+                    <li><a href="?c=Competition&a=course">摄影课堂</a></li>
+                </ul>
             </div>
+        </div>
 
-            <div class="container" id="listBox">  
-                <?php
+        <div class="container" id="listBox">
+            <?php
                     $order = 1;
                     while ($arr_photoinfo=mysql_fetch_array($ret_sqldata)) {
                         echo "<a href='index.php?c=Image&a=detail&id=".$arr_photoinfo[img_id]."'>";
@@ -87,13 +89,14 @@
                         $order++;
                     }
                 ?>
-            </div>
-            
-            <div class="nodata text-center red mb_14" style=""></div>
-            <div id="footer">
-                <p class="text-center">主办：广州现代医院</p>
-                <p class="text-center">承办：广州现代医院企划部</p>
-            </div>
         </div>
-    </body>
+
+        <div class="nodata text-center red mb_14" style=""></div>
+        <div id="footer">
+            <p class="text-center">主办：广州现代医院</p>
+            <p class="text-center">承办：广州现代医院企划部</p>
+        </div>
+    </div>
+</body>
+
 </html>
