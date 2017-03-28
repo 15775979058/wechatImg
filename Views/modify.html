@@ -1,35 +1,35 @@
 <!DOCTYPE HTML>
 <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-      <title>修改我的作品</title>
-      <link rel="stylesheet" type="text/css" href="Public/css/uploadImg.css">
-    </head>
-    <body> 
-        <img src="upload/<?php echo $arr_singleinfo['img_file_name']; ?>"  alt="我的作品" width="100%" align="middle"/>       
-        <form id="photoInfo"  action="?c=Image&a=update" method="post">
-            <fieldset>
-                <legend >作品资料</legend>
-                <ol>
-                    <li>
-                        <label for="title">作品标题：</label>
-                        <input id="title" name="title" type="text" maxlength="12" value="<?php echo $arr_singleinfo['title']; ?>" required autofocus>
-                    </li>
-                    <li>
-                        <label for="brief">作品简介：</label>
-                        <textarea id="brief" name="brief" rows="6" required><?php echo $arr_singleinfo['brief']; ?></textarea>
-                    </li>
-                    <li>
-                        <label for="name">作者姓名：</label>
-                        <input id="name" name="name" type="text" maxlength="12" value="<?php echo $arr_singleinfo['name']; ?>" required>
-						<input type="hidden" name="img_id" value="<?php echo $arr_singleinfo['img_id']; ?>">
-                    </li>
-                </ol>
-            </fieldset>
-            <fieldset>
-                <button type="submit" id="submitBtn" style="height:50px;width:100%;">确认修改</button>
-            </fieldset>
-	</form>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>修改我的作品</title>
+    <link rel="stylesheet" type="text/css" href="Public/css/uploadImg.css">
+</head>
+<body>
+    <img src="upload/<?php echo $arr_singleinfo['img_file_name']; ?>" alt="我的作品" width="100%" align="middle" />
+    <form id="photoInfo" action="?c=Image&a=update" method="post">
+        <fieldset>
+            <legend>作品资料</legend>
+            <ol>
+                <li>
+                    <label for="title">作品标题：</label>
+                    <input id="title" name="title" type="text" maxlength="12" value="<?php echo $arr_singleinfo['title']; ?>" required autofocus>
+                </li>
+                <li>
+                    <label for="brief">作品简介：</label>
+                    <textarea id="brief" name="brief" rows="6" required><?php echo $arr_singleinfo['brief']; ?></textarea>
+                </li>
+                <li>
+                    <label for="name">作者姓名：</label>
+                    <input id="name" name="name" type="text" maxlength="12" value="<?php echo $arr_singleinfo['name']; ?>" required>
+                    <input type="hidden" name="img_id" value="<?php echo $arr_singleinfo['img_id']; ?>">
+                </li>
+            </ol>
+        </fieldset>
+        <fieldset>
+            <button type="submit" id="submitBtn" style="height:50px;width:100%;">确认修改</button>
+        </fieldset>
+    </form>
+</body>
 </html>
