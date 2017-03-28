@@ -1,47 +1,43 @@
 <!DOCTYPE HTML>
 <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-      <title>作品上传</title>
-      <link rel="stylesheet" type="text/css" href="./Public/css/uploadImg.css">
-    </head>
-    <body>
-    
-        <input type="file" id="choose" accept="image/*" multiple>
-        <ul class="img-list"></ul>
-        <a id="upload">选择照片</a>
-        <span class="tips">只能上传jpg png gif格式</span>
-        <div class="pic-list" id="ajaxRespond"></div>
-        
-        <form id="photoInfo"  action="?c=Image&a=storeInfo" method="post">
-            <fieldset>
-                <legend >作品资料</legend>
-                <ol>
-                    <li>
-                        <label for="title">作品标题：</label>
-                        <input id="title" name="title" type="text" placeholder="12个字以内" maxlength="12" required autofocus>
-                    </li>
-                    <li>
-                        <label for="brief">作品简介：</label>
-                        <textarea id="brief" name="brief" placeholder="用简短的语言描述一下，更容易获得投票哦！" rows="6" required></textarea>
-                    </li>
-                    <li>
-                        <label for="name">作者姓名：</label>
-                        <input id="name" name="name" type="text" placeholder="姓名用于奖金发放" maxlength="12" required>
-                        <input type="hidden" name="filename" id="newFileName" value="default.jpg"> 
-                        <input type="hidden" name="openid" id="wxOpenID" value="<?php echo $_COOKIE["openid"]; ?>"> 
-                    </li>
-                </ol>
-            </fieldset>
-            <fieldset>
-                <button type="submit" id="submitBtn" style="height:50px;width:100%;display:none;">立即上传</button>
-            </fieldset>
-        </form>
-
-        
-        <script src="./Public/js/jquery-2.1.1.min.js"></script>
-        <!--本地压缩图片js逻辑-->
-        <script src="./Public/js/localCompress.js"></script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>作品上传</title>
+    <link rel="stylesheet" type="text/css" href="./Public/css/uploadImg.css">
+</head>
+<body>
+    <input type="file" id="choose" accept="image/*" multiple>
+    <ul class="img-list"></ul>
+    <a id="upload">选择照片</a>
+    <span class="tips">只能上传jpg png gif格式</span>
+    <div class="pic-list" id="ajaxRespond"></div>
+    <form id="photoInfo" action="?c=Image&a=storeInfo" method="post">
+        <fieldset>
+            <legend>作品资料</legend>
+            <ol>
+                <li>
+                    <label for="title">作品标题：</label>
+                    <input id="title" name="title" type="text" placeholder="12个字以内" maxlength="12" required autofocus>
+                </li>
+                <li>
+                    <label for="brief">作品简介：</label>
+                    <textarea id="brief" name="brief" placeholder="用简短的语言描述一下，更容易获得投票哦！" rows="6" required></textarea>
+                </li>
+                <li>
+                    <label for="name">作者姓名：</label>
+                    <input id="name" name="name" type="text" placeholder="姓名用于奖金发放" maxlength="12" required>
+                    <input type="hidden" name="filename" id="newFileName" value="default.jpg">
+                    <input type="hidden" name="openid" id="wxOpenID" value="<?php echo $_COOKIE[" openid "]; ?>">
+                </li>
+            </ol>
+        </fieldset>
+        <fieldset>
+            <button type="submit" id="submitBtn" style="height:50px;width:100%;display:none;">立即上传</button>
+        </fieldset>
+    </form>
+    <script src="./Public/js/jquery-2.1.1.min.js"></script>
+    <!--本地压缩图片js逻辑-->
+    <script src="./Public/js/localCompress.js"></script>
+</body>
 </html>

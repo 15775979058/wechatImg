@@ -6,10 +6,8 @@
       <title>修改我的作品</title>
       <link rel="stylesheet" type="text/css" href="Public/css/uploadImg.css">
     </head>
-    <body>
-        
-        <img src="upload/<?php echo $arr_singleinfo['img_file_name']; ?>"  alt="我的作品" width="100%" align="middle"/>
-        
+    <body> 
+        <img src="upload/<?php echo $arr_singleinfo['img_file_name']; ?>"  alt="我的作品" width="100%" align="middle"/>       
         <form id="photoInfo"  action="?c=Image&a=update" method="post">
             <fieldset>
                 <legend >作品资料</legend>

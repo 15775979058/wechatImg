@@ -13,7 +13,6 @@
     </head>
     <body>
         <div id="wrap">
-
             <div class="container top-bar">
                 <div class="title">修改作品信息</div>
                 <div class="tips">
@@ -27,9 +26,7 @@
                     ?>
                 </div>
             </div>
-
             <div class="container" id="listBox">  
-
   		<?php
                     $order = 1;
                     while ($arr_photoinfo=mysql_fetch_array($ret_sqldata)) {
@@ -56,8 +53,7 @@
                         $order++;
                     }
                 ?>
-            </div>
-            
+            </div>   
             <div class="nodata text-center red mb_14"></div>
             <div id="footer">
                 <p class="text-center">主办：广州现代医院</p>
