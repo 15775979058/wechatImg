@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>投票排行榜</title>
@@ -16,11 +15,8 @@
     <script>
         var LoadMoreUrl = 'index.php?c=Image&a=ranklist';
         var imgUrl = './upload/';
-        var now = 1488077313;
     </script>
-
 </head>
-
 <body>
     <div id="wrap">
         <div class="container search">
@@ -39,7 +35,7 @@
                                     <option value="1">作品编号</option>
                                     <option value="2">作品标题</option>
                                     <option value="3">作者姓名</option>
-                                </select>
+                            </select>
                         </div>
                     </div>
                     <div class="col-xs-2" style="padding-left:2px;">
@@ -61,7 +57,6 @@
                 </ul>
             </div>
         </div>
-
         <div class="container" id="listBox">
             <?php
                     $order = 1;
@@ -90,7 +85,6 @@
                     }
                 ?>
         </div>
-
         <div class="nodata text-center red mb_14" style=""></div>
         <div id="footer">
             <p class="text-center">主办：广州现代医院</p>
@@ -98,5 +92,4 @@
         </div>
     </div>
 </body>
-
 </html>
