@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="Public/css/base.css" />
     <link rel="stylesheet" type="text/css" href="Public/css/detail.css">
     <script src="Public/js/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
         var name = "<?php echo $arr_singleinfo[name]; ?>";
@@ -23,12 +24,18 @@
                     function(data, status) {
                         if (status == "success") {
                             if (data == "success") {
-                                alert("你成功投了" + name + "1票");
+                                $("#vote_tips").text("你成功投了" + name + "1票");
+                                $('#vote_status').modal({
+                                  backdrop: false
+                                });
                                 //更新票数显示
                                 var t_num = parseInt($("#ticket").text()) + 1;
                                 $("#ticket").text(t_num.toString());
                             } else {
-                                alert("你今天已经投了" + name + "1票,明天再来吧！");
+                                $("#vote_tips").text("你今天已经投了" + name + "1票，明天再来吧！");
+                                $('#vote_status').modal({
+                                  backdrop: false
+                                });
                             }
                         } else {
                             alert("网络连接失败！");
@@ -74,6 +81,24 @@
             <div id="footer">
                 <p class="text-center">主办：广州现代医院</p>
                 <p class="text-center">承办：广州现代医院企划部</p>
+            </div>
+        </div>
+    </div>
+    <!-- 投票提示Modal -->
+    <div class="modal fade" id="vote_status" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">投票状态</h4>
+                </div>
+                <div class="modal-body" id="vote_tips">
+                    投票系统升级中，开发者：Greatfar。
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                </div>
             </div>
         </div>
     </div>
