@@ -1,16 +1,32 @@
 <!DOCTYPE HTML>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>修改我的作品</title>
-    <link rel="stylesheet" type="text/css" href="Public/css/uploadImg.css">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Public/css/modify.css">
 </head>
+
 <body>
-    <img src="upload/<?php echo $arr_singleinfo['img_file_name']; ?>" alt="我的作品" width="100%" align="middle" />
+    <div id="wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" align="center">
+                    <img src="upload/<?php echo $arr_singleinfo['img_file_name']; ?>" height="160px" alt="我的作品" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="file" id="choose" accept="image/*" multiple>
+    <ul class="img-list"></ul>
+    <a id="upload">重新上传照片(替换原图)</a>
+    <div class="pic-list" id="ajaxRespond"></div>
     <form id="photoInfo" action="?c=Image&a=update" method="post">
         <fieldset>
-            <legend>作品资料</legend>
             <ol>
                 <li>
                     <label for="title">作品标题：</label>
@@ -24,6 +40,7 @@
                     <label for="name">作者姓名：</label>
                     <input id="name" name="name" type="text" maxlength="12" value="<?php echo $arr_singleinfo['name']; ?>" required>
                     <input type="hidden" name="img_id" value="<?php echo $arr_singleinfo['img_id']; ?>">
+                    <input type="hidden" name="filename" id="newFileName" value="<?php echo $arr_singleinfo['img_file_name']; ?>">
                 </li>
             </ol>
         </fieldset>
@@ -31,5 +48,7 @@
             <button type="submit" id="submitBtn" style="height:50px;width:100%;">确认修改</button>
         </fieldset>
     </form>
+    <script src="./Public/js/localCompress.js"></script>
 </body>
+
 </html>

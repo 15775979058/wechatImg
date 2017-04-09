@@ -194,6 +194,7 @@ class ImageModel {
         $post_title = !empty($_POST['title']) ? $_POST['title'] : exit();
         $post_brief = !empty($_POST['brief']) ? $_POST['brief'] : exit();
         $img_id = !empty($_POST['img_id']) ? $_POST['img_id'] : exit();
+        $filename = !empty($_POST['filename']) ? $_POST['filename'] : exit();
         //对于提交的表单数据进行特殊字符检查，防止提交HTML标签
         $name = htmlspecialchars($post_name,ENT_QUOTES);                 //转义所有HTML字符，包括英文的单引号、双引号
         $title = htmlspecialchars($post_title,ENT_QUOTES);
@@ -207,13 +208,13 @@ class ImageModel {
             die('你不是该作品的拥有者');    //如果不是本人，直接退出脚本
         }
         //更新数据库
-        $sql_picinfo="UPDATE wx_imginfo SET name='$name',title='$title',brief='$brief' WHERE img_id=$img_id";
+        $sql_picinfo="UPDATE wx_imginfo SET name='$name',title='$title',brief='$brief',img_file_name='$filename' WHERE img_id=$img_id";
         $ret_inslog = mysql_query($sql_picinfo, $link);
         if ($ret_inslog === false) {
             die("插入数据失败: " . mysql_error($link));
         }
         else{
-            header("Location: https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx011cddc56212c6ed&redirect_uri=http%3A%2F%2Fwximg.gzxd120.com%2F%3Fc%3DImage%26a%3Ddetail%26id%3D".$img_id."&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");     //跳转到作品详情页
+            header("Location: index.php?c=Image&a=detail&id=".$img_id);     //跳转到作品详情页
         }   
     }
 }
