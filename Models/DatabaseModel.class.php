@@ -7,11 +7,11 @@ class DatabaseModel {
     
     //连接数据库方法
     function connectDatabase() {
-        $dbname = 'wximg_gzxd120_com';    //数据库名称
-        $host = 'rds10mh1rv5l0jb7wnxa.mysql.rds.aliyuncs.com';         //主机名称
+        $dbname = '';    //数据库名称
+        $host = '';         //主机名称
         $port = 3306;                //数据库端口号
-        $user = 'xdwximg';              //用户名AK
-        $pwd = 'XDsql%*0308';             //密码SK
+        $user = '';              //用户名AK
+        $pwd = '';             //密码SK
         //打开数据库连接
         $link = @mysql_connect("{$host}:{$port}",$user,$pwd,true);
         if(!$link) {
