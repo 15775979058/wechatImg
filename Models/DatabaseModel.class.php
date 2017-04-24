@@ -9,7 +9,7 @@ class DatabaseModel {
     function connectDatabase() {
         $dbname = '';    //数据库名称
         $host = '';         //主机名称
-        $port = 3306;                //数据库端口号
+        $port = ;                //数据库端口号
         $user = '';              //用户名AK
         $pwd = '';             //密码SK
         //打开数据库连接
