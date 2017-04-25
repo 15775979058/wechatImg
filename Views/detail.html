@@ -18,7 +18,6 @@
         $(document).ready(function() {
             $("div.btn-vote").click(function() {
                 $.post("./index.php?c=User&a=vote", {
-                        openid: "<?php echo $_COOKIE['openid'] ; ?>",
                         img_id: "<?php echo $arr_singleinfo[img_id]; ?>"
                     },
                     function(data, status) {

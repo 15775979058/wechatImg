@@ -22,7 +22,7 @@ class UserModel {
     //投票方法
     function vote() {
         //对POST变量进行验证
-        $openid = isset($_POST['openid']) ? $_POST['openid'] : die("不合法的投票请求");
+        $openid = isset($_COOKIE['openid']) ? $_COOKIE['openid'] : die("不合法的投票请求");
         $imgid = isset($_POST['img_id']) ? $_POST['img_id'] : die("不合法的投票请求");
         //连接数据库
         require_once './Models/DatabaseModel.class.php';
@@ -103,8 +103,9 @@ class UserModel {
     function checkOpenid($str_openid, $var_link){
         $sql_select="SELECT * FROM wx_userbase WHERE openid = '".$str_openid ."'";
         $ret_sqldata = mysql_query($sql_select, $var_link) or die("数据库错误: " . mysql_error($var_link));
-        if(mysql_num_rows($ret_sqldata)==0){    //如果openid不存在
-            die();  //退出脚本。
+        if(mysql_num_rows($ret_sqldata)==0){                                      //如果openid不存在
+            setcookie("openid", "",time() - 3600);          //删除cookie，触发重新登录，让openid存储在数据库中
+            die();                                                                //退出脚本。
         }
     }
     
