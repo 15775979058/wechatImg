@@ -28,6 +28,9 @@ class UserModel {
         require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
         $link = $db->connectDatabase();
+        //检查openid的真实性
+        $this->checkOpenid($openid, $link);
+        //查询投票记录
         $sql_select="SELECT * FROM wx_vote WHERE openid = '".$openid."'";
         $ret_sqldata = mysql_query($sql_select, $link) or die("数据库错误: " . mysql_error($link));
         //根据查询结果去更新票数
@@ -88,6 +91,20 @@ class UserModel {
             $sqldata = mysql_query($sql_vote, $link) or die("数据库错误: " . mysql_error($link));
             //返回成功
             return "success";
+        }
+    }
+
+
+    /**
+     * 检查openid是否在数据库中存在，防止伪造openid刷票
+     * @param $str_openid 微信openid
+     * @param $var_link 数据库连接
+     */
+    function checkOpenid($str_openid, $var_link){
+        $sql_select="SELECT * FROM wx_userbase WHERE openid = '".$str_openid ."'";
+        $ret_sqldata = mysql_query($sql_select, $var_link) or die("数据库错误: " . mysql_error($var_link));
+        if(mysql_num_rows($ret_sqldata)==0){    //如果openid不存在
+            die();  //退出脚本。
         }
     }
     

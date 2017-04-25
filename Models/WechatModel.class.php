@@ -64,6 +64,12 @@ class WechatModel {
         $state = !empty($_GET['state']) ? $_GET['state'] : exit();            //验证GET变量
         if($state == "base"){
             setcookie("openid", $user_data->{'openid'}, time()+36000);        //返回的是openid,直接写入cookie中
+            //把openid存进wx_userbase表中
+            require_once './Models/DatabaseModel.class.php';
+            $db = new DatabaseModel();
+            $link = $db->connectDatabase();
+            $sql_insert="INSERT wx_userbase ( openid ) values ('".$user_data->{'openid'}."') ON DUPLICATE KEY UPDATE openid='".$user_data->{'openid'}."'";
+            $ret_inslog = mysql_query($sql_insert, $link) or die("数据库错误: " . mysql_error($link));
         }else if($state == "userinfo"){
             $openid = $user_data->{'openid'};
             setcookie("openid", $openid, time()+36000);         //保存openid
@@ -72,10 +78,7 @@ class WechatModel {
             $db = new DatabaseModel();
             $link = $db->connectDatabase();
             $sql_insert="INSERT ".$table_userinfo." (openid, nickname, sex, province, city, country, headimgurl, privilege) values ('".$user_data->{'openid'}."','".$user_data->{'nickname'}."','".$user_data->{'sex'}."','".$user_data->{'province'}."','".$user_data->{'city'}."','".$user_data->{'country'}."','".$user_data->{'headimgurl'}."','".$user_data->{'privilege'}."') ON DUPLICATE KEY UPDATE headimgurl='".$user_data->{'headimgurl'}."'";
-            $ret_inslog = mysql_query($sql_insert, $link);
-            if ($ret_inslog === false) {
-                die("插入数据失败: " . mysql_error($link));
-            }
+            $ret_inslog = mysql_query($sql_insert, $link) or die("数据库错误: " . mysql_error($link));
             //在cookie中设置曾经以snsapi_base方式登录过的标记
              setcookie("userinfo", "true", time()+36000);
         }
@@ -116,8 +119,5 @@ class WechatModel {
         }
     }
     
-    
-    
 
 }
-
