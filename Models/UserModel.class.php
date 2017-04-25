@@ -47,10 +47,7 @@ class UserModel {
             $db = new DatabaseModel();
             $link = $db->connectDatabase();
             $sql_insert="INSERT wx_userinfo (openid, nickname, sex, province, city, country, headimgurl, privilege) values ('".$user_data->{'openid'}."','".$user_data->{'nickname'}."','".$user_data->{'sex'}."','".$user_data->{'province'}."','".$user_data->{'city'}."','".$user_data->{'country'}."','".$user_data->{'headimgurl'}."','".$user_data->{'privilege'}."') ON DUPLICATE KEY UPDATE headimgurl='".$user_data->{'headimgurl'}."'";
-            $ret_inslog = mysql_query($sql_insert, $link);
-            if ($ret_inslog === false) {
-                die("插入数据失败: " . mysql_error($link));
-            }
+            $ret_inslog = mysql_query($sql_insert, $link) or die("数据库错误: " . mysql_error($link));
             //在cookie中设置曾经以snsapi_base方式登录过的标记
              setcookie("userinfo", "true", time()+36000);
         }
@@ -67,10 +64,7 @@ class UserModel {
         $link = $db->connectDatabase();
         //查询wx_imginfo表
         $sql_picinfo="SELECT * FROM wx_imginfo WHERE openid = '$_COOKIE[openid]'";
-        $ret_sqldata = mysql_query($sql_picinfo, $link);
-        if ($ret_sqldata === false) {
-            die("查询数据失败: " . mysql_error($link));
-        }
+        $ret_sqldata = mysql_query($sql_picinfo, $link) or die("数据库错误: " . mysql_error($link));
         return $ret_sqldata;
     }
     
@@ -85,10 +79,7 @@ class UserModel {
         $db = new DatabaseModel();
         $link = $db->connectDatabase();
         $sql_select="SELECT * FROM wx_vote WHERE openid = '".$openid."'";
-        $ret_sqldata = mysql_query($sql_select, $link);
-        if ($ret_sqldata === false) {
-            die("查询数据失败: " . mysql_error($link));
-        }
+        $ret_sqldata = mysql_query($sql_select, $link) or die("数据库错误: " . mysql_error($link));
         //根据查询结果去更新票数
         if(mysql_num_rows($ret_sqldata)==0){        //如果没有查询到记录
             //组装数组
@@ -102,16 +93,10 @@ class UserModel {
             $json_votelog = json_encode($arr_two);
             //向wx_vote表中插入投票记录
             $sql_ins_vl = "INSERT INTO wx_vote (openid, votelog) values('".$openid."','".$json_votelog."')";
-            $ret_vl_sqldata = mysql_query($sql_ins_vl, $link);
-            if ($ret_vl_sqldata === false) {
-                die("查询数据失败: " . mysql_error($link));
-            }
+            $ret_vl_sqldata = mysql_query($sql_ins_vl, $link) or die("数据库错误: " . mysql_error($link));
             //更新wx_imginfo表，把票数加1
             $sql_upd_ii = "update wx_imginfo set ticket=ticket+1 where img_id='".$imgid."'";
-            $ret_ii_sqldata = mysql_query($sql_upd_ii, $link);
-            if ($ret_ii_sqldata === false) {
-                die("查询数据失败: " . mysql_error($link));
-            }
+            $ret_ii_sqldata = mysql_query($sql_upd_ii, $link) or die("数据库错误: " . mysql_error($link));
             return "success";
         }  else {      //查询到记录
             $arr_votelog = mysql_fetch_array($ret_sqldata);             //转换成数组
@@ -124,10 +109,7 @@ class UserModel {
                 }elseif ($ticket->{'imgid'} == $imgid && $ticket->{'date'} != date("Ymd")) {    //日期不同，今天还没有投票
                     //更新wx_imginfo表，票数+1
                     $sql_upd_ii = "update wx_imginfo set ticket=ticket+1 where img_id='".$imgid."'";
-                    $ret_ii_sqldata = mysql_query($sql_upd_ii, $link);
-                    if ($ret_ii_sqldata === false) {
-                        die("查询数据失败: " . mysql_error($link));
-                    }
+                    $ret_ii_sqldata = mysql_query($sql_upd_ii, $link) or die("数据库错误: " . mysql_error($link));
                     //更新wx_vote,更新该openid对应的投票记录，对这个编号的投票日期更新为今天
                     $ticket->{'date'} = date("Ymd");
                     $arr_log[$pos] = $ticket;     //把这个数组更新到log数组中。$arr_log[$pos]不能写成$arr_log['$pos']，如果数组下表加了引号就不是序号下表了，该数组中不存在字符串“1”为下表的元素
@@ -135,22 +117,15 @@ class UserModel {
                     $json_log = json_encode($arr_log);
                     //更新wx_vote表中的投票记录
                     $sql_ins_vl = "update wx_vote set votelog='".$json_log."' where openid ='".$openid."'";
-                    $ret_data = mysql_query($sql_ins_vl, $link);
-                    if ($ret_data === false) {
-                        die("查询数据失败: " . mysql_error($link));
-                    }
+                    $ret_data = mysql_query($sql_ins_vl, $link) or die("数据库错误: " . mysql_error($link));
                     //返回数据
                     return "success";
                 }
             }
-            //return "执行到这里2";
             //如果执行到这个位置，表明没有投过该编号
             //更新wx_imginfo表，票数+1
             $sql_upd_ii = "update wx_imginfo set ticket=ticket+1 where img_id='".$imgid."'";
-            $ret_ii_sqldata = mysql_query($sql_upd_ii, $link);
-            if ($ret_ii_sqldata === false) {
-                die("查询数据失败: " . mysql_error($link));
-            }
+            $ret_ii_sqldata = mysql_query($sql_upd_ii, $link) or die("数据库错误: " . mysql_error($link));
             //向投票记录中加入数据
             $log = array (
                 "imgid"  => $imgid,
@@ -160,10 +135,7 @@ class UserModel {
             $json_votelog = json_encode($arr_log);  //转换成json
             //更新投票记录
             $sql_vote = "update wx_vote set votelog='".$json_votelog."' where openid='".$openid."'";
-            $sqldata = mysql_query($sql_vote, $link);
-            if ($sqldata === false) {
-                die("查询数据失败: " . mysql_error($link));
-            }
+            $sqldata = mysql_query($sql_vote, $link) or die("数据库错误: " . mysql_error($link));
             //返回成功
             return "success";
         }

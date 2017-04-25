@@ -61,13 +61,9 @@ class ImageModel {
         $brief = str_replace("\r\n", "<br>", $no_specialchars_brief);              //把回车换行符\r\n替换成<br/>
         //向photoinfo表插入数据
         $sql_picinfo="INSERT INTO wx_imginfo ( name, openid, title, brief, img_file_name) VALUES ('$name','$openid','$title','$brief','$filename')";
-        $ret_inslog = mysql_query($sql_picinfo, $link);
-        if ($ret_inslog === false) {
-            die("插入数据失败: " . mysql_error($link));
-        }
-        else{
-            return "<meta http-equiv='refresh' content='3; url=./index.php?c=Image&a=ranklist' /><h2 align='center'>作品上传成功 3秒后自动跳转到排行榜</h2>";
-        }
+        $ret_inslog = mysql_query($sql_picinfo, $link) or die("插入数据失败: " . mysql_error($link));
+        //上传成功，跳转到排行榜
+        return "<meta http-equiv='refresh' content='3; url=./index.php?c=Image&a=ranklist' /><h2 align='center'>作品上传成功 3秒后自动跳转到排行榜</h2>";
     }
     
     
@@ -80,10 +76,7 @@ class ImageModel {
         $startPage = $page * 10;
         //查询photoinfo表
         $sql_picinfo="select * from wx_imginfo order by ticket desc limit $startPage,10";
-        $ret_sqldata = mysql_query($sql_picinfo, $link);
-        if ($ret_sqldata === false) {
-            die("查询数据失败: " . mysql_error($link));
-        }
+        $ret_sqldata = mysql_query($sql_picinfo, $link) or die("查询数据库失败: " . mysql_error($link));
         if($page == 0){
             return $ret_sqldata;        //如果不是ajax请求，直接返回查询结果集
         }else{
@@ -107,10 +100,7 @@ class ImageModel {
         $id = !empty($_GET['id']) ? $_GET['id'] : exit();
         //查询photoinfo表
         $sql_picinfo="select * from wx_imginfo where img_id='$id'";
-        $ret_sqldata = mysql_query($sql_picinfo, $link);
-        if ($ret_sqldata === false) {
-            die("查询数据失败: " . mysql_error($link));
-        }
+        $ret_sqldata = mysql_query($sql_picinfo, $link) or die("查询数据库失败: " . mysql_error($link));
         //检查是否有该记录，没有就是id错误，直接跳转到排行榜
         $rows = mysql_num_rows($ret_sqldata);
          if($rows==0){
@@ -119,10 +109,7 @@ class ImageModel {
         }
         //阅读量+1
         $sql_upd="UPDATE wx_imginfo SET pageview=pageview+1 WHERE img_id = '$id'";
-        $result = mysql_query($sql_upd, $link);
-        if ($result === false) {
-            die("更新阅读量失败:" . mysql_error($link));
-        }
+        $result = mysql_query($sql_upd, $link) or die("更新阅读量失败: " . mysql_error($link));
         //返回数组数组
         return mysql_fetch_array($ret_sqldata);    //转换成数组
     }
@@ -153,10 +140,7 @@ class ImageModel {
                 break;
         }
         //查询photoinfo表
-        $ret_sqldata = mysql_query($sql_search, $link);
-        if ($ret_sqldata === false) {
-            die("查询数据失败: " . mysql_error($link));
-        }
+        $ret_sqldata = mysql_query($sql_search, $link) or die("查询数据库失败: " . mysql_error($link));
         return $ret_sqldata;    //返回查询结果集
     }
     
@@ -170,10 +154,7 @@ class ImageModel {
         //查询数据库
         $id = !empty($_GET['id']) ? $_GET['id'] : exit();       //验证Get变量
         $sql_picinfo="select * from wx_imginfo where img_id=".$id;
-        $ret_sqldata = mysql_query($sql_picinfo, $link);
-        if ($ret_sqldata === false) {
-            die("查询数据失败: " . mysql_error($link));
-        }
+        $ret_sqldata = mysql_query($sql_picinfo, $link) or die("查询数据库失败: " . mysql_error($link));
         //验证openid，防止非法访问修改页面
         $arr_imginfo = mysql_fetch_array($ret_sqldata);          //记录转换成数组
         if($arr_imginfo['openid'] != $_COOKIE["openid"]){        //判断是否本人。此处直接读取cookie，因为登录检查方法已经验证了该cookie已经存在
@@ -209,12 +190,8 @@ class ImageModel {
         }
         //更新数据库
         $sql_picinfo="UPDATE wx_imginfo SET name='$name',title='$title',brief='$brief',img_file_name='$filename' WHERE img_id=$img_id";
-        $ret_inslog = mysql_query($sql_picinfo, $link);
-        if ($ret_inslog === false) {
-            die("插入数据失败: " . mysql_error($link));
-        }
-        else{
-            header("Location: index.php?c=Image&a=detail&id=".$img_id);     //跳转到作品详情页
-        }   
+        $ret_inslog = mysql_query($sql_picinfo, $link) or die("数据库错误: " . mysql_error($link));
+        //跳转到作品详情页
+        header("Location: index.php?c=Image&a=detail&id=".$img_id);
     }
 }
