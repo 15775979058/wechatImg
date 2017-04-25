@@ -4,57 +4,7 @@ class UserModel {
     function __construct() {
         
     }
-    
-    //用户登录检查。默认以snsapi_base的方式授权登录。如果要求以scope=snsapi_userinfo的方式授权登录，$state参数必须为“userinfo”。
-    //$isUserInfo用来决定是否必须以snsapi_userinfo方式登录，或者曾经以userinfo登录过。
-    //防止用户在别的页面以snsapi_base授权登录过被cookie记住openid后，来到投稿页面不以snsapi_userinfo方式授权登录，导致无法获取微信用户详细信息。
-    //因为业务要求是投稿要获取微信昵称，点赞只需要获取openid.
-    function loginCheck($isUserInfo,$scope = "snsapi_base", $state = "base") {
-        include_once './Models/WechatModel.class.php';
-        $wechat = new WechatModel();
-        //进行是否即使cookie中有openid也登录的判断
-        $flag = false;
-        if($isUserInfo){
-            if(!isset($_COOKIE["userinfo"])){
-                $flag = true;
-            }
-        }
-        //判断cookie中是否有openid
-        if (!isset($_COOKIE["openid"]) || $flag){
-            $pageUrl = $wechat->getPageURL();       //获取当前请求url
-            //把当前请求url存进session中
-            setcookie("last_url", $pageUrl, time()+600);
-            //跳转到微信登录页面
-            $redirect_url = "http%3A%2F%2Fwximg.gzxd120.com%2Findex.php%3Fc%3DUser%26a%3DwxLogin";
-            $wechat->jumpWechatLogin($redirect_url,$scope,$state);          
-        }else if($flag){
-            return $_COOKIE["openid"];   //返回openid
-        }
-    }
-    
-    
-    //存储用户信息到数据库、cookie
-    function storeUserInfo($user_data) {
-        //获取授权类型
-        $state = !empty($_GET['state']) ? $_GET['state'] : exit();            //验证GET变量
-        if($state == "base"){
-            setcookie("openid", $user_data->{'openid'}, time()+36000);        //返回的是openid,直接写入cookie中
-        }else if($state == "userinfo"){
-            $openid = $user_data->{'openid'};
-            setcookie("openid", $openid, time()+36000);         //保存openid
-            //把用户数据存进数据库中
-            require_once './Models/DatabaseModel.class.php';
-            $db = new DatabaseModel();
-            $link = $db->connectDatabase();
-            $sql_insert="INSERT wx_userinfo (openid, nickname, sex, province, city, country, headimgurl, privilege) values ('".$user_data->{'openid'}."','".$user_data->{'nickname'}."','".$user_data->{'sex'}."','".$user_data->{'province'}."','".$user_data->{'city'}."','".$user_data->{'country'}."','".$user_data->{'headimgurl'}."','".$user_data->{'privilege'}."') ON DUPLICATE KEY UPDATE headimgurl='".$user_data->{'headimgurl'}."'";
-            $ret_inslog = mysql_query($sql_insert, $link) or die("数据库错误: " . mysql_error($link));
-            //在cookie中设置曾经以snsapi_base方式登录过的标记
-             setcookie("userinfo", "true", time()+36000);
-        }
-        //跳转到登录前的url
-        header("Location: ".$_COOKIE["last_url"] );
-    }
-    
+
     
     //作品维护
     function getMyImg() {

@@ -5,26 +5,23 @@ class UserController {
         
     }
     
-    //微信登录
-    function wxLoginAction() {
+    //收集微信登录的用户信息
+    function collectUserInfoAction() {
         header("Content-type:text/html;charset=utf-8");
-        //调用微信模块获取授权用户信息
+        //调用微信模块-授权登录方法
         require_once './Models/WechatModel.class.php';
         $wechat = new WechatModel();
-        $user_data = $wechat->wxOAuthLogin();
-        //存储微信授权信息到数据库
-        require_once './Models/UserModel.class.php';
-        $user = new UserModel();
-        $user->storeUserInfo($user_data);
+        $user_data = $wechat->wxOAuthLogin("wx_userinfo");
     }
     
     //我的作品页面
     function myImgAction() {
         header("Content-type:text/html;charset=utf-8");
         //检查是否已经登录
-        require './Models/UserModel.class.php';
-        $user = new UserModel();
-        $user->loginCheck(false);
+        require './Models/WechatModel.class.php';
+        $wechat = new WechatModel();
+        $redirect_url = "http%3A%2F%2Fwximg.gzxd120.com%2Findex.php%3Fc%3DUser%26a%3DcollectUserInfo";        //用户信息收集页面URL
+        $wechat->loginCheck($redirect_url);
         //获取我的作品
         require_once './Models/UserModel.class.php';
         $user = new UserModel();
