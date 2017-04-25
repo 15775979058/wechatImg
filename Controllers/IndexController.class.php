@@ -6,8 +6,11 @@ class IndexController {
     function __construct() {
         
     }
-    
-    //首页
+
+
+    /**
+     * 首页
+     */
     function indexAction() {
         //检查是否已经登录
         require './Models/WechatModel.class.php';

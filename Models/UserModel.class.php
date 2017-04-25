@@ -5,8 +5,11 @@ class UserModel {
         
     }
 
-    
-    //作品维护
+
+    /**
+     * 作品维护
+     * @return resource     作品查询结果集
+     */
     function getMyImg() {
         //连接数据库
         require_once './Models/DatabaseModel.class.php';
@@ -17,9 +20,12 @@ class UserModel {
         $ret_sqldata = mysql_query($sql_picinfo, $link) or die("数据库错误: " . mysql_error($link));
         return $ret_sqldata;
     }
-    
-    
-    //投票方法
+
+
+    /**
+     * 投票方法
+     * @return string   投票结果。success：投票成功，false:投票失败
+     */
     function vote() {
         //对POST变量进行验证
         $openid = isset($_COOKIE['openid']) ? $_COOKIE['openid'] : die("不合法的投票请求");

@@ -4,15 +4,24 @@ class WechatModel {
     function __construct() {
         
     }
-    
-    //跳转到微信网页授权登录URL
+
+
+    /**
+     * 跳转到微信网页授权登录URL
+     * @param $redirect_url     用户同意登录，收集用户信息的URL
+     * @param $scope            微信授权登录方式
+     * @param $state            授权登录类型
+     */
     function jumpWechatLogin($redirect_url, $scope,$state) {
         $open_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx011cddc56212c6ed&redirect_uri=".$redirect_url."&response_type=code&scope=".$scope."&state=".$state."#wechat_redirect";
         header("Location: ".$open_url);
     }
     
-    
-    //获取当前网页URL方法
+
+    /**
+     * 获取当前网页URL方法
+     * @return string   当前请求路径
+     */
     function getPageURL() {
         $pageURL = 'http';
         if ($_SERVER["HTTPS"] == "on")
@@ -32,8 +41,11 @@ class WechatModel {
         return $pageURL;
     }
     
-    
-    //获取用户信息
+
+    /**
+     * 获取用户信息
+     * @return mixed    数组-用户信息
+     */
     function getUserInfo() {
         //用户同意授权，获取code
         $code = !empty($_GET['code']) ? $_GET['code'] : exit();
@@ -55,10 +67,12 @@ class WechatModel {
         }
     }
     
-    
-    //存储用户信息到数据库、cookie
-    //$user_data:存储用户信息的数组
-    //$table_userinfo:存储用户信息的数据库表的名字
+
+    /**
+     * 存储用户信息到数据库、cookie
+     * @param $user_data    用户数据
+     * @param $table_userinfo   存储用户信息的数据库的表
+     */
     function storeUserInfo($user_data, $table_userinfo) {
         //获取授权类型
         $state = !empty($_GET['state']) ? $_GET['state'] : exit();            //验证GET变量
@@ -86,20 +100,29 @@ class WechatModel {
         header("Location: ".$_COOKIE["last_url"] );
     }
     
-    
-    //授权登录信息获取
-    //$table_userinfo:存储用户信息的数据库表的名字
+
+    /**
+     * 授权登录信息获取
+     *
+     * @param $table_userinfo   存储用户信息的数据库表的名字
+     */
     function wxOAuthLogin($table_userinfo) {
         $user_data = $this->getUserInfo();      //获取用户信息
         $this->storeUserInfo($user_data, $table_userinfo);       //存储用户信息
     }
     
-    
-    //登录检查
-    //$isUserInfo参数：true为snsapi_userinfo登录方式，false为snsapi_base登录方式。
-    //默认以snsapi_base的方式授权登录。如果要求以scope=snsapi_userinfo的方式授权登录，$state参数必须为“userinfo”。
-    //防止用户在别的页面以snsapi_base授权登录过被cookie记住openid后，来到投稿页面不以snsapi_userinfo方式授权登录，导致无法获取微信用户详细信息。
-    //因为业务要求是投稿要获取微信昵称，点赞只需要获取openid.
+
+    /**
+     * 登录检查
+     * 默认以snsapi_base的方式授权登录。如果要求以scope=snsapi_userinfo的方式授权登录，$state参数必须为“userinfo”。
+     * 防止用户在别的页面以snsapi_base授权登录过被cookie记住openid后，来到投稿页面不以snsapi_userinfo方式授权登录，导致无法获取微信用户详细信息。
+     * 因为业务要求是投稿要获取微信昵称，点赞只需要获取openid.
+     * @param $redirect_url     用户同意登录，收集用户信息的URL，必须经过urldecode()
+     * @param bool $isUserInfo  是否强制以snsapi_userinfo的方式登录，true为强制要求重新登录
+     * @param string $scope     微信授权类型
+     * @param string $state     登录类型标识
+     * @return mixed            openid
+     */
     function loginCheck($redirect_url, $isUserInfo = false, $scope = "snsapi_base", $state = "base") {
         //进行是否即使cookie中有openid也登录的判断
         $flag = false;

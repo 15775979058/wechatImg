@@ -5,12 +5,18 @@ class CompetitionController {
         
     }
 
-    //通知
+
+    /**
+     * 通知
+     */
     function notificationAction() {
         include './Views/notification.html';
     }
-    
-    //摄影课堂
+
+
+    /**
+     * 摄影课堂
+     */
     function courseAction() {
         include './Views/course.html';
     }

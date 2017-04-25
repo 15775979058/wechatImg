@@ -4,8 +4,11 @@ class UserController {
     function __construct() {
         
     }
-    
-    //收集微信登录的用户信息
+
+
+    /**
+     * 收集微信登录的用户信息
+     */
     function collectUserInfoAction() {
         header("Content-type:text/html;charset=utf-8");
         //调用微信模块-授权登录方法
@@ -13,8 +16,11 @@ class UserController {
         $wechat = new WechatModel();
         $user_data = $wechat->wxOAuthLogin("wx_userinfo");
     }
-    
-    //我的作品页面
+
+
+    /**
+     * 我的作品页面
+     */
     function myImgAction() {
         header("Content-type:text/html;charset=utf-8");
         //检查是否已经登录
@@ -28,8 +34,11 @@ class UserController {
         $ret_sqldata = $user->getMyImg();
         require_once './Views/myImg.html';
     }
-    
-    //投票动作
+
+
+    /**
+     * 投票动作
+     */
     function voteAction() {
         header("Content-type:text/html;charset=utf-8");
         //调用投票函数

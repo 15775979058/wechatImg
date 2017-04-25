@@ -4,8 +4,12 @@ class DatabaseModel {
     function __construct() {
         
     }
-    
-    //连接数据库方法
+
+
+    /**
+     * 连接数据库方法
+     * @return resource 数据库连接对象
+     */
     function connectDatabase() {
         $dbname = 'wximg_gzxd120_com';    //数据库名称
         $host = 'rds10mh1rv5l0jb7wnxa.mysql.rds.aliyuncs.com';         //主机名称

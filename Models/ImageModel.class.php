@@ -5,8 +5,11 @@ class ImageModel {
         
     }
     
-    
-    //接收文件
+
+    /**
+     * 接收文件
+     * @return string   json数据，状态以及照片文件名
+     */
     function receiveImg() {
         $status = "";      //上传状态，用于控制表单提交按钮的隐藏/显示
         if(($_FILES["file"]["type"] == "image/gif") || ($_FILES["file"]["type"] == "image/jpeg")
@@ -39,8 +42,12 @@ class ImageModel {
         return json_encode($upload_result);
     }
     
-    
-    //存储照片(作品)信息
+
+
+    /**
+     * 存储照片(作品)信息
+     * @return string   http标签，meta定时刷新
+     */
     function storeInfo() {
         require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
@@ -66,8 +73,11 @@ class ImageModel {
         return "<meta http-equiv='refresh' content='3; url=./index.php?c=Image&a=ranklist' /><h2 align='center'>作品上传成功 3秒后自动跳转到排行榜</h2>";
     }
     
-    
-    //获取排行榜数据
+
+    /**
+     * 获取排行榜数据
+     * @return resource|string  排行榜数据
+     */
     function getRanklist() {
         require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
@@ -89,9 +99,12 @@ class ImageModel {
             return json_encode($arr_result);
         }
     }
-    
-    
-    //获取单个作品详细信息
+
+
+    /**
+     * 获取单个作品详细信息
+     * @return array    数组-单个作品
+     */
     function getDetail() {
         require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
@@ -114,8 +127,11 @@ class ImageModel {
         return mysql_fetch_array($ret_sqldata);    //转换成数组
     }
     
-    
-    //搜索作品
+
+    /**
+     * 搜索作品
+     * @return resource     搜索结果，数据库查询结果集
+     */
     function searchImg() {
         require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
@@ -144,8 +160,12 @@ class ImageModel {
         return $ret_sqldata;    //返回查询结果集
     }
     
-    
-    //获取照片信息，用于填充修改表单
+
+    /**
+     * 获取照片信息，用于填充修改表单
+     * @param $img_id   照片id
+     * @return array    照片信息查询结果集
+     */
     function getMyImgById($img_id) {
         //连接数据库
         require_once './Models/DatabaseModel.class.php';
@@ -163,8 +183,10 @@ class ImageModel {
         return $arr_imginfo;        //返回照片信息数组
     }
     
-    
-    //更新照片信息
+
+    /**
+     * 更新照片信息
+     */
     function updateImg() {
         //连接数据库
         require_once './Models/DatabaseModel.class.php';
