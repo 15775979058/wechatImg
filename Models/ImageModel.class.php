@@ -89,8 +89,9 @@ class ImageModel {
         $page = !empty($_POST['page']) ? $_POST['page'] : 0;         //获取页码，默认第0页
         $startPage = $page * 10;
         //查询wx_imginfo表
-        $sql_select = "select * from wx_imginfo order by ticket desc limit ".$startPage." , 10";
+        $sql_select = "select * from wx_imginfo order by ticket desc limit ? , 10";
         $sth = $pdo->prepare($sql_select);
+        $sth->bindParam(1, $startPage, PDO::PARAM_INT);         //通过绑定参数方法bindParam()指定参数类型为int型。如果直接execute()中以数组方式传递参数，PHP会默认为字符串
         $sth->execute() or die("数据库错误: " . $sth->errorInfo()[2]);
         if($page == 0){
             return $sth;        //如果不是ajax请求，直接返回查询结果集
