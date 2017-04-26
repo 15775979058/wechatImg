@@ -60,7 +60,7 @@
         <div class="container" id="listBox">
             <?php
                     $order = 1;
-                    while ($arr_photoinfo=mysql_fetch_array($ret_sqldata)) {
+                    while ($arr_photoinfo=$ret_sqldata->fetch(PDO::FETCH_ASSOC)) {
                         echo "<a href='index.php?c=Image&a=detail&id=".$arr_photoinfo[img_id]."'>";
                         echo "<div class='cellBox'>";
                         echo "<div class='row'>";

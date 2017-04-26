@@ -74,25 +74,23 @@ class WechatModel {
      * @param $table_userinfo   存储用户信息的数据库的表
      */
     function storeUserInfo($user_data, $table_userinfo) {
+        require_once './Models/DatabaseModel.class.php';
+        $db = new DatabaseModel();
+        $pdo = $db->connectDatabase();
         //获取授权类型
         $state = !empty($_GET['state']) ? $_GET['state'] : exit();            //验证GET变量
         if($state == "base"){
             setcookie("openid", $user_data->{'openid'}, time()+36000);        //返回的是openid,直接写入cookie中
             //把openid存进wx_userbase表中
-            require_once './Models/DatabaseModel.class.php';
-            $db = new DatabaseModel();
-            $link = $db->connectDatabase();
-            $sql_insert="INSERT wx_userbase ( openid ) values ('".$user_data->{'openid'}."') ON DUPLICATE KEY UPDATE openid='".$user_data->{'openid'}."'";
-            $ret_inslog = mysql_query($sql_insert, $link) or die("数据库错误: " . mysql_error($link));
+            $sql_insert="INSERT wx_userbase ( openid ) values ( ? ) ON DUPLICATE KEY UPDATE openid = ?";
+            $sth = $pdo->prepare($sql_insert);
+            $sth->execute(array($user_data->{'openid'}, $user_data->{'openid'})) or die("数据库错误: " . $sth->errorInfo()[2]);
         }else if($state == "userinfo"){
             $openid = $user_data->{'openid'};
             setcookie("openid", $openid, time()+36000);         //保存openid
-            //把用户数据存进数据库中
-            require_once './Models/DatabaseModel.class.php';
-            $db = new DatabaseModel();
-            $link = $db->connectDatabase();
-            $sql_insert="INSERT ".$table_userinfo." (openid, nickname, sex, province, city, country, headimgurl, privilege) values ('".$user_data->{'openid'}."','".$user_data->{'nickname'}."','".$user_data->{'sex'}."','".$user_data->{'province'}."','".$user_data->{'city'}."','".$user_data->{'country'}."','".$user_data->{'headimgurl'}."','".$user_data->{'privilege'}."') ON DUPLICATE KEY UPDATE headimgurl='".$user_data->{'headimgurl'}."'";
-            $ret_inslog = mysql_query($sql_insert, $link) or die("数据库错误: " . mysql_error($link));
+            $sql_insert = "INSERT ".$table_userinfo." (openid, nickname, sex, province, city, country, headimgurl, privilege) values (?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE headimgurl = ?";
+            $sth = $pdo->prepare($sql_insert);
+            $sth->execute(array($user_data->{'openid'}, $user_data->{'nickname'}, $user_data->{'sex'}, $user_data->{'province'}, $user_data->{'privilege'}, $user_data->{'country'}, $user_data->{'headimgurl'}, $user_data->{'city'}, $user_data->{'headimgurl'})) or die("数据库错误: " . $sth->errorInfo()[2]);
             //在cookie中设置曾经以snsapi_base方式登录过的标记
              setcookie("userinfo", "true", time()+36000);
         }

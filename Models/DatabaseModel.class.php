@@ -11,16 +11,14 @@ class DatabaseModel {
      * @return resource 数据库连接对象
      */
     function connectDatabase() {
-        $dbname = 'wximg_gzxd120_com';    //数据库名称
-        $host = 'rds10mh1rv5l0jb7wnxa.mysql.rds.aliyuncs.com';         //主机名称
-        $port = 3306;                //数据库端口号
-        $user = 'xdwximg';              //用户名AK
-        $pwd = 'XDsql%*0308';             //密码SK
-        //打开数据库连接
-        $link = @mysql_connect("{$host}:{$port}",$user,$pwd,true) or die("数据库连接失败: " . mysql_error());
-        //连接成功后立即调用mysql_select_db()选中需要连接的数据库
-        mysql_select_db($dbname,$link) or die("选择数据库失败: " . mysql_error($link));
-        return $link;
+        $dbms='mysql';                                      //数据库类型
+        $dbName='wximg_gzxd120_com';                        //使用的数据库
+        $user='xdwximg';                                    //数据库连接用户名
+        $pwd='XDsql%*0308';                                 //数据库连接密码
+        $host='rds10mh1rv5l0jb7wnxa.mysql.rds.aliyuncs.com';//数据库主机名
+        $dsn="$dbms:host=$host;port=3306;dbname=$dbName";
+        $pdo=new PDO($dsn,$user,$pwd);                      //初始化一个PDO对象，就是创建了数据库连接对象$pdo
+        return $pdo;
     }
 }
 
