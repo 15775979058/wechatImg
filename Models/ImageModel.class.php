@@ -184,13 +184,15 @@ class ImageModel {
         $pdo = $db->connectDatabase();
         //验证Get变量
         $id = !empty($_GET['id']) ? $_GET['id'] : exit();
+        //检查是否有cookie
+        $cookie_openid = !empty($_COOKIE["openid"]) ? $_COOKIE["openid"] : exit();
         //查询数据库
         $sql_select = "select * from wx_imginfo where img_id = ?";
         $sth = $pdo->prepare($sql_select);
         $sth->execute(array($id)) or die("数据库错误: " . $sth->errorInfo()[2]);
         //验证openid，防止非法访问修改页面
         $arr_imginfo = $sth->fetch(PDO::FETCH_ASSOC);             //查询结果匹配成数组
-        if($arr_imginfo['openid'] != $_COOKIE["openid"]){        //判断是否本人。此处直接读取cookie，因为登录检查方法已经验证了该cookie已经存在
+        if($arr_imginfo['openid'] != $cookie_openid){             //判断是否本人。此处直接读取cookie，因为登录检查方法已经验证了该cookie已经存在
             die("<meta http-equiv='refresh' content='3; url=./index.php' /><h2 align='center'>你不是该作品的主人</h2>");
         }
         return $arr_imginfo;        //返回照片信息数组
