@@ -194,7 +194,7 @@ class ImageModel {
         //验证openid，防止非法访问修改页面
         $arr_imginfo = $sth->fetch(PDO::FETCH_ASSOC);             //查询结果匹配成数组
         if($arr_imginfo['openid'] != $cookie_openid){             //判断是否本人。此处直接读取cookie，因为登录检查方法已经验证了该cookie已经存在
-            die("<meta http-equiv='refresh' content='3; url=./index.php' /><h2 align='center'>你不是该作品的主人</h2>");
+            die("<meta http-equiv='refresh' content='3; url=./index.php' /><h1 align='center'>你不是该作品的主人</h1>");
         }
         return $arr_imginfo;        //返回照片信息数组
     }
@@ -227,7 +227,7 @@ class ImageModel {
         $sth->execute(array($img_id)) or die("数据库错误: " . $sth->errorInfo()[2]);
         $arr_imginfo = $sth->fetch(PDO::FETCH_ASSOC);            //查询结果匹配成数组
         if($arr_imginfo['openid'] != $cookie_openid){            //cookie中openid与数据库该照片openid不符，即不是本人请求
-            die("<meta http-equiv='refresh' content='3; url=./index.php' /><h2 align='center'>你不是该作品的主人</h2>");
+            die("<meta http-equiv='refresh' content='3; url=./index.php' /><h1 align='center'>你不是该作品的主人</h1>");
         }
         //更新数据库
         $sql_update= "UPDATE wx_imginfo SET name = ?, title = ?, brief = ?, img_file_name = ? WHERE img_id = ?";

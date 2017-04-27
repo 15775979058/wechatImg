@@ -121,8 +121,7 @@ class UserModel {
         //计算影响行数
         $arr_res = $sth->fetchAll();
         if(count($arr_res) == 0){       //数组元素个数为0，即openid不存在
-            setcookie("openid", "",time() - 3600);          //删除cookie，触发重新登录，让openid存储在数据库中
-            header("Location: http://wximg.gzxd120.com");                  //重定向到首页
+            setcookie("openid", "",time() - 3600);          //删除cookie，刷新页面时会触发重新登录，让openid存储在wx_userbase表中
             exit();                                                               //退出脚本
         }
 
