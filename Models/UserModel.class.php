@@ -119,7 +119,7 @@ class UserModel {
         $sth = $pdo->prepare($sql_query);
         $sth->execute(array($str_openid)) or die("数据库错误: " . $sth->errorInfo()[2]);
         //计算影响行数
-        $arr_res = $sth->fetchAll(PDO::FETCH_ASSOC);
+        $arr_res = $sth->fetchAll();
         if(count($arr_res) == 0){       //数组元素个数为0，即openid不存在
             setcookie("openid", "",time() - 3600);          //删除cookie，触发重新登录，让openid存储在数据库中
             header("Location: http://wximg.gzxd120.com");                  //重定向到首页
