@@ -82,15 +82,15 @@ class WechatModel {
         if($state == "base"){
             setcookie("openid", $user_data->{'openid'}, time()+36000);        //返回的是openid,直接写入cookie中
             //把openid存进wx_userbase表中
-            $sql_insert="INSERT wx_userbase ( openid ) values ( ? ) ON DUPLICATE KEY UPDATE openid = ?";
+            $sql_insert="INSERT wx_userbase ( openid, logintime ) values ( ?, ? ) ON DUPLICATE KEY UPDATE logintime = ?";
             $sth = $pdo->prepare($sql_insert);
-            $sth->execute(array($user_data->{'openid'}, $user_data->{'openid'})) or die("数据库错误: " . $sth->errorInfo()[2]);
+            $sth->execute(array($user_data->{'openid'}, date("Y-m-d H:i:s"), date("Y-m-d H:i:s"))) or die("数据库错误: " . $sth->errorInfo()[2]);
         }else if($state == "userinfo"){
             $openid = $user_data->{'openid'};
             setcookie("openid", $openid, time()+36000);         //保存openid
             $sql_insert = "INSERT ".$table_userinfo." (openid, nickname, sex, province, city, country, headimgurl, privilege) values (?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE headimgurl = ?";
             $sth = $pdo->prepare($sql_insert);
-            $sth->execute(array($user_data->{'openid'}, $user_data->{'nickname'}, $user_data->{'sex'}, $user_data->{'province'}, $user_data->{'privilege'}, $user_data->{'country'}, $user_data->{'headimgurl'}, $user_data->{'city'}, $user_data->{'headimgurl'})) or die("数据库错误: " . $sth->errorInfo()[2]);
+            $sth->execute(array($user_data->{'openid'}, $user_data->{'nickname'}, $user_data->{'sex'}, $user_data->{'province'}, $user_data->{'city'}, $user_data->{'country'}, $user_data->{'headimgurl'}, json_encode($user_data->{'privilege'}), $user_data->{'headimgurl'})) or die("数据库错误: " . $sth->errorInfo()[2]);
             //在cookie中设置曾经以snsapi_base方式登录过的标记
              setcookie("userinfo", "true", time()+36000);
         }
