@@ -19,14 +19,16 @@
 9. 使用JQuery向服务器提交ajax投票请求
 
 # MySQL #
-数据库中的三个表：
+数据库表结构：
 
 1. wx_imginfo
 ![](./src/wx_imginfo.jpg)
-2. wx_userinfo
-![](./src/wx_userinfo.jpg)
-3. wx_vote
+2. wx_vote
 ![](./src/wx_vote.jpg)
+3. wx_userbase
+![](./src/wx_userbase.jpg)
+4. wx_userinfo
+![](./src/wx_userinfo.jpg)
 
 # Demo #
 本项目主要为微信网页开发，Demo只能在微信客户端中打开
