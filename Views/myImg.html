@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>我的作品</title>
@@ -12,25 +13,27 @@
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./Public/css/myImg.css">
 </head>
+
 <body>
     <div id="wrap">
         <div class="container top-bar">
             <div class="title">修改作品信息</div>
             <div class="tips">
                 <?php
-                        //如果没有查询结果，显示“你还没有作品 请上传你的作品”
-                        if(mysql_num_rows($ret_sqldata)==0){
-                            echo "你还没有作品 请上传你的作品";
-                        }else{
-                            echo "点击需要修改的作品 即可进入修改页面";
-                        }
-                    ?>
+                    $arr_res = $ret_sqldata->fetchAll();
+                    //如果没有查询结果，显示“你还没有作品 请上传你的作品”
+                    if(count($arr_res) == 0){
+                        echo "你还没有作品 请上传你的作品";
+                    }else{
+                        echo "点击需要修改的作品 即可进入修改页面";
+                    }
+                ?>
             </div>
         </div>
         <div class="container" id="listBox">
             <?php
                     $order = 1;
-                    while ($arr_photoinfo=$ret_sqldata->fetch(PDO::FETCH_ASSOC)) {
+                     foreach ($arr_res as $arr_photoinfo) {
                         echo "<a href='?c=Image&a=modify&id=".$arr_photoinfo[img_id]."'>";
                         echo "<div class='cellBox'>";
                         echo "<div class='row'>";
@@ -62,4 +65,5 @@
         </div>
     </div>
 </body>
+
 </html>
