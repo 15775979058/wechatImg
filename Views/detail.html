@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <title>摄影作品-<?php echo "$arr_singleinfo[title]"; ?></title>
+    <title>摄影作品-
+        <?php echo "$arr_singleinfo[title]"; ?>
+    </title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -25,7 +28,7 @@
                             if (data == "success") {
                                 $("#vote_tips").text("你成功投了" + name + "1票");
                                 $('#vote_status').modal({
-                                  backdrop: false
+                                    backdrop: false
                                 });
                                 //更新票数显示
                                 var t_num = parseInt($("#ticket").text()) + 1;
@@ -33,17 +36,19 @@
                             } else {
                                 $("#vote_tips").text("你今天已经投了" + name + "1票，明天再来吧！");
                                 $('#vote_status').modal({
-                                  backdrop: false
+                                    backdrop: false
                                 });
                             }
                         } else {
-                            alert("网络连接失败！");
+                            Toast('网络连接失败！', 3000);
                         }
                     });
             });
         });
+
     </script>
 </head>
+
 <body>
     <div id="wrap">
         <div class="container" id="topNav">
@@ -134,10 +139,10 @@
             link: 'http://wximg.gzxd120.com/index.php?c=Image&a=detail&id=<?php echo $arr_singleinfo[img_id]; ?>', // 分享链接
             imgUrl: 'http://wximg.gzxd120.com/upload/<?php echo $arr_singleinfo[img_file_name]; ?>', // 分享图标
             success: function() {
-                alert('分享朋友圈成功')
+                Toast('分享朋友圈成功', 3000);
             },
             cancel: function() {
-                alert('取消分享朋友圈成功')
+                Toast('取消分享朋友圈成功', 3000);
             }
         });
         //分享微信好友
@@ -149,12 +154,29 @@
             type: '', // 分享类型,music、video或link，不填默认为link
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
             success: function() {
-                alert('分享微信好友成功')
+                Toast('分享微信好友成功', 3000);
             },
             cancel: function() {
-                alert('取消分享微信好友成功')
+                Toast('取消分享微信好友成功', 3000);
             }
         });
     });
+    //Toast提示框函数
+    function Toast(msg, duration) {
+        duration = isNaN(duration) ? 3000 : duration;
+        var m = document.createElement('div');
+        m.innerHTML = msg;
+        m.style.cssText = "width: 60%;min-width: 150px;opacity: 0.8;height: 30px;color: rgb(255, 0, 0);line-height: 30px;text-align: center;border-radius: 15px;position: fixed;top: 40%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-weight:blod;font-size:16px;";
+        document.body.appendChild(m);
+        setTimeout(function() {
+            var d = 0.8;
+            m.style.webkitTransition = '-webkit-transition ' + d + 's ease-in, opacity ' + d + 's ease-in';
+            m.style.opacity = '0';
+            setTimeout(function() {
+                document.body.removeChild(m)
+            }, d * 1000);
+        }, duration);
+    }
 </script>
+
 </html>
