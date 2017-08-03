@@ -159,6 +159,9 @@
 .bianhao{
 	float:left;
 }
+.box-vote{
+    text-align: center;
+}
 .btn-vote{
-	margin-left:36%;
+	margin: 0 auto;
 }
