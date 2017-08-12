@@ -32,7 +32,7 @@ $(function() {
                             str +="<div class='row mb4'><div class='col-xs-6 pr_2'><strong>编号：</strong>"+array['img_id']+"</div><div class='col-xs-6 pl_2 red'><strong>票数：</strong>"+array['ticket']+"</div></div>";
                             str +="<p><strong>作者：</strong>"+array['name']+"</p>";
                             str +="<p><strong>标题：</strong>"+array['title']+"</p>";
-                            str +="<p style='overflow:hidden;text-overflow:ellipsis;'><nobr><strong>简介：</strong>"+array['brief']+"</nobr></p>";
+                            str +="<p class='brief_onerow' style='overflow:hidden;text-overflow:ellipsis;'><nobr><strong>简介：</strong>"+array['brief']+"</nobr></p>";
                             str +="</div>";
                             str +="</div>";
                             str +="</div>";

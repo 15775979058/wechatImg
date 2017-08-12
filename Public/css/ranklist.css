@@ -56,3 +56,6 @@ a{
 .qian{
 	background: #e33e3d;
 }
+p.brief_onerow {
+    height: 20px;
+}
