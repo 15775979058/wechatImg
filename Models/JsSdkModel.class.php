@@ -1,5 +1,5 @@
 <?php
-class JSSDK {
+class JsSdkModel {
   private $appId;
   private $appSecret;
 

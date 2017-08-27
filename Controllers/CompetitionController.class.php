@@ -10,7 +10,7 @@ class CompetitionController {
      * 通知
      */
     function notificationAction() {
-        include './Views/notification.html';
+        require './Views/notification.html';
     }
 
 
@@ -18,7 +18,7 @@ class CompetitionController {
      * 摄影课堂
      */
     function courseAction() {
-        include './Views/course.html';
+        require './Views/course.html';
     }
     
 }

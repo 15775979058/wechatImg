@@ -11,11 +11,10 @@ class ImageController {
      */
     function uploadAction() {
         //检查是否已经登录
-        require './Models/WechatModel.class.php';
         $wechat = new WechatModel();
         $redirect_url = "http%3A%2F%2Fwximg.gzxd120.com%2Findex.php%3Fc%3DUser%26a%3DcollectUserInfo";        //用户信息收集页面URL
         $wechat->loginCheck($redirect_url, true, "snsapi_userinfo", "userinfo");
-        require_once './Views/uploadImg.html';
+        require './Views/uploadImg.html';
     }
 
 
@@ -24,7 +23,6 @@ class ImageController {
      */
     function receiveImgAction() {
         header('Content-type: text/json');      //json格式
-        require_once './Models/ImageModel.class.php';
         $img = new ImageModel();
         echo $img->receiveImg();         //直接向客户端返回json数据
     }
@@ -35,9 +33,8 @@ class ImageController {
      */
     function storeInfoAction() {
         header("Content-type:text/html;charset=utf-8");
-        require_once './Models/ImageModel.class.php';
         $img = new ImageModel();
-        echo $img->storeInfo();         //直接向客户端打印结果
+        echo $img->storeInfo();
     }
 
 
@@ -46,12 +43,10 @@ class ImageController {
      */
     function ranklistAction() {
         //检查是否已经登录
-        require './Models/WechatModel.class.php';
         $wechat = new WechatModel();
         $redirect_url = "http%3A%2F%2Fwximg.gzxd120.com%2Findex.php%3Fc%3DUser%26a%3DcollectUserInfo";        //用户信息收集页面URL
         $wechat->loginCheck($redirect_url);
         //获取获取排行榜数据
-        require_once './Models/ImageModel.class.php';
         $img = new ImageModel();
         $rankData = $img->getRanklist();
         if(isset($_POST[page]) && !empty($_POST[page])){
@@ -59,7 +54,7 @@ class ImageController {
             return;             //ajax提交无需加载排行榜视图，所以直接返回
         }
         $ret_sqldata = $rankData;       //如果不是ajax请求，函数调用后的结果是sql查询结果集，方便视图读取
-        require_once './Views/ranklist.html';
+        require './Views/ranklist.html';
     }
 
 
@@ -68,19 +63,16 @@ class ImageController {
      */
     function detailAction() {
         //检查是否已经登录
-        require './Models/WechatModel.class.php';
         $wechat = new WechatModel();
         $redirect_url = "http%3A%2F%2Fwximg.gzxd120.com%2Findex.php%3Fc%3DUser%26a%3DcollectUserInfo";        //用户信息收集页面URL
         $wechat->loginCheck($redirect_url);
         //调用JS-SDK
-        require_once './Models/JsSdkModel.class.php';
-        $jssdk = new JSSDK("wx011cddc56212c6ed", "b2aa40a0d1f71b9ba4103ca05c22453e");
+        $jssdk = new JsSdkModel("wx011cddc56212c6ed", "b2aa40a0d1f71b9ba4103ca05c22453e");
         $signPackage = $jssdk->GetSignPackage();
         //获取详细信息
-        require_once './Models/ImageModel.class.php';
         $img = new ImageModel();
         $arr_singleinfo = $rankData = $img->getDetail();
-        require_once './Views/detail.html';
+        require './Views/detail.html';
     }
 
 
@@ -89,15 +81,13 @@ class ImageController {
      */
     function searchAction() {
         //检查是否已经登录
-        require './Models/WechatModel.class.php';
         $wechat = new WechatModel();
         $redirect_url = "http%3A%2F%2Fwximg.gzxd120.com%2Findex.php%3Fc%3DUser%26a%3DcollectUserInfo";        //用户信息收集页面URL
         $wechat->loginCheck($redirect_url);
         //执行搜索操作
-        require_once './Models/ImageModel.class.php';
         $img = new ImageModel();
         $ret_sqldata = $img->searchImg();
-        require_once './Views/search.html';
+        require './Views/search.html';
     }
 
 
@@ -106,15 +96,13 @@ class ImageController {
      */
     function modifyAction() {
         //检查是否已经登录
-        require './Models/WechatModel.class.php';
         $wechat = new WechatModel();
         $redirect_url = "http%3A%2F%2Fwximg.gzxd120.com%2Findex.php%3Fc%3DUser%26a%3DcollectUserInfo";        //用户信息收集页面URL
         $wechat->loginCheck($redirect_url);
         //获取照片信息，填充表单
-        require_once './Models/ImageModel.class.php';
         $img = new ImageModel();
         $arr_singleinfo = $img->getMyImgById();
-        require_once './Views/modify.html';
+        require './Views/modify.html';
     }
 
 
@@ -123,7 +111,6 @@ class ImageController {
      */
     function updateAction() {
         header("Content-type:text/html;charset=utf-8");
-        require_once './Models/ImageModel.class.php';
         $img = new ImageModel();
         $img->updateImg();
     }
