@@ -84,7 +84,7 @@ class WechatModel {
             //把openid存进wx_userbase表中
             $sql_insert="INSERT wx_userbase ( openid, logintime ) values ( ?, ? ) ON DUPLICATE KEY UPDATE logintime = ?";
             $sth = $pdo->prepare($sql_insert);
-            $sth->execute(array($user_data->{'openid'}, date("Y-m-d H:i:s"), date("Y-m-d H:i:s"))) or die("数据库错误: " . $sth->errorInfo()[2]);
+            $sth->execute(array($user_data->{'openid'}, time(), time())) or die("数据库错误: " . $sth->errorInfo()[2]);
         }else if($state == "userinfo"){
             $openid = $user_data->{'openid'};
             setcookie("openid", $openid, time()+36000);         //保存openid

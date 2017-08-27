@@ -124,7 +124,6 @@ class UserModel {
             setcookie("openid", "",time() - 3600);          //删除cookie，刷新页面时会触发重新登录，让openid存储在wx_userbase表中
             exit();                                                               //退出脚本
         }
-
     }
     
 }
