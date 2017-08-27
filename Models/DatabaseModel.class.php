@@ -17,7 +17,7 @@ class DatabaseModel {
         $pwd='XDsql%*0308';                                 //数据库连接密码
         $host='rds10mh1rv5l0jb7wnxa.mysql.rds.aliyuncs.com';//数据库主机名
         $dsn="$dbms:host=$host;port=3306;dbname=$dbName";
-        $pdo=new PDO($dsn,$user,$pwd);                      //初始化一个PDO对象，就是创建了数据库连接对象$pdo
+        $pdo=new PDO($dsn, $user, $pwd, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8';"));
         return $pdo;
     }
 }
