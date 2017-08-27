@@ -50,7 +50,6 @@ class ImageModel {
      */
     function storeInfo() {
         //连接数据库
-        require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
         $pdo = $db->connectDatabase();
         //对POST提交的变量进行非空验证
@@ -82,7 +81,6 @@ class ImageModel {
      */
     function getRanklist() {
         //连接数据库
-        require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
         $pdo = $db->connectDatabase();
         //获取请求页码
@@ -113,7 +111,6 @@ class ImageModel {
      */
     function getDetail() {
         //连接数据库
-        require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
         $pdo = $db->connectDatabase();
         //对POST提交的变量进行验证
@@ -144,7 +141,6 @@ class ImageModel {
      */
     function searchImg() {
         //连接数据库
-        require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
         $pdo = $db->connectDatabase();
         //对GET提交的变量进行验证
@@ -180,7 +176,6 @@ class ImageModel {
      */
     function getMyImgById() {
         //连接数据库
-        require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
         $pdo = $db->connectDatabase();
         //验证Get变量
@@ -205,7 +200,6 @@ class ImageModel {
      */
     function updateImg() {
         //连接数据库
-        require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
         $pdo = $db->connectDatabase();
         //验证cookie中是否有openid

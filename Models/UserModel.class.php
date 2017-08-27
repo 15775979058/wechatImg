@@ -14,7 +14,6 @@ class UserModel {
         //验证是否有cookie
         $openid = isset($_COOKIE['openid']) ? $_COOKIE['openid'] : exit();
         //查询数据库
-        require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
         $pdo = $db->connectDatabase();
         $sql_query="SELECT * FROM wx_imginfo WHERE openid = ?";
@@ -33,7 +32,6 @@ class UserModel {
         $openid = isset($_COOKIE['openid']) ? $_COOKIE['openid'] : die("不合法的投票请求");
         $imgid = isset($_POST['img_id']) ? $_POST['img_id'] : die("不合法的投票请求");
         //连接数据库
-        require_once './Models/DatabaseModel.class.php';
         $db = new DatabaseModel();
         $pdo = $db->connectDatabase();
         //检查openid的真实性
